@@ -1,5 +1,9 @@
-const MongoClient = require("mongodb").MongoClient;
-const client = new MongoClient('mongodb://user:user123@ds221155.mlab.com:21155/student_screening', {useNewUrlParser: true});
+
+const mongoose = require('mongoose');
+
+const dev_db_url = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
+
 
 let dbConnection;
 
@@ -16,33 +20,17 @@ class DBConnection {
     }
 
     createConnection() {
-        client.connect((err) => {
-            if (err) {
-                throw err
-            } else {
-                console.log('Successfully connected to MongoDB')
-                const db = client.db('student_screening');
-                //    const collection = db.collection('homework07');
-                client.close;
-                return db;
-            }
-        })
+       mongoose.connect(mongoDB,  () => {
+
+            console.log("DB is connected")
+
+        });
+
+        return mongoose;
     }// end of connection
 
 
-    getAndy() {
-
-        if (!db) {
-            client.connect((err) => {
-                if (err) throw err;
-                const db = client.db('student_screening');
-                req.result = db;
-                return next();
-            });
-        }
-        return db;
-
-    }
+ 
 
 }
 
