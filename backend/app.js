@@ -5,10 +5,14 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 
+const DataBase = require('./db/DBConnection');
+let db = new DataBase();
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +24,14 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(doConnect);
+
+function doConnect(req, res, next) {
+    req.db =db.createConnection();
+    next();
+}
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -41,5 +53,5 @@ app.use(function (err, req, res, next) {
 });
 app.listen(4000, () => {
     console.log("Listening")
-})
+});
 module.exports = app;
