@@ -10,6 +10,7 @@ const Students = db.model('students', new Schema({
     status: {type: String},
     exam: {
         type: Array,
+        id: {type: String},
         question: {
             type: String,
             answer: {type: Array}

@@ -25,9 +25,8 @@ class DBConnection {
     constructor() {
         this.createConnection();
     }
-    
+
     createConnection() {
-        console.log(mongoUrl);
         mongoose.connect(mongoUrl).then(() => {
             console.log("DB connected")
         }).catch(err => {
