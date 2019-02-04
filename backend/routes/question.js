@@ -3,7 +3,9 @@ const router = express.Router();
 const Question = require("../models/question");
 
 router.get("/:id", async (req, res, next) => {
-  const question = await Question.find({ questionId: req.params.id });
+  const count = parseInt(req.params.id);
+  console.log(count);
+  const question = await Question.find({ status: "activated" }).limit(3);
   console.log(question);
   if (!question)
     res
@@ -15,7 +17,7 @@ router.get("/:id", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   const question = await Question.update(
     { questionId: req.params.id },
-    { status: "activated" },
+    { status: "deactivated" },
     { upsert: true, new: true }
   );
   if (!question)
@@ -26,7 +28,9 @@ router.put("/:id", async (req, res, next) => {
 });
 router.get("/", async (req, res, next) => {
   try {
-    const question = await Question.find().sort("questionId");
+    const question = await Question.find({ status: "activated" }).sort(
+      "questionId"
+    );
     res.status(200).json(question);
   } catch (error) {
     next(error);
