@@ -1,34 +1,23 @@
 const mongoose = require('mongoose');
-const dev_db_url = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
-
-
-let dbConnection;
-
-const dbName = `student_screening`;
-const collectionQuestion = "questions";
-const collectionStaff = "staff";
-const collectionStudent = "students";
-
-let db;
+let ConstDB = require('../keys/ConstDB');
+const mongoUrl = `mongodb://${ConstDB.DB_USER}:${ConstDB.DB_PASS}@${ConstDB.DB_HOST}`;
 
 class DBConnection {
     constructor() {
-
+        this.createConnection();
     }
-
+    
     createConnection() {
-       mongoose.connect(mongoDB,  () => {
-
-            console.log("DB is connected")
+        console.log(mongoUrl);
+        mongoose.connect(mongoUrl).then(() => {
+            console.log("DB connected")
+        }).catch(err => {
+            console.log("Error : " + err)
 
         });
 
-        return mongoose;
     }// end of connection
 
-
- 
 
 }
 
