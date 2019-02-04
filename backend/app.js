@@ -12,6 +12,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var staffRouter = require('./routes/staff');
 const questionRouter = require("./routes/question");
+const authRouter = require('./routes/auth');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use('/auth', authRouter);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/question", questionRouter);
@@ -41,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/students', studentsRouter);
 app.use('/staff', staffRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
