@@ -8,9 +8,17 @@ var logger = require("morgan");
 const DataBase = require("./db/DBConnection");
 let db = new DataBase();
 
+<<<<<<< HEAD
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const questionRouter = require("./routes/question");
+=======
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var studentsRouter = require('./routes/student');
+
+>>>>>>> 5062706ccc37d482745997277d08755d8d8a6007
 var app = express();
 
 // view engine setup
@@ -21,12 +29,22 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+<<<<<<< HEAD
 app.use(lessMiddleware(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/question", questionRouter);
+=======
+app.use(lessMiddleware(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/students', studentsRouter);
+>>>>>>> 5062706ccc37d482745997277d08755d8d8a6007
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
