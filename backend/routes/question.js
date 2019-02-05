@@ -17,10 +17,11 @@ router.get("/:id", auth, admin, async (req, res, next) => {
 
     res.status(200).json(question);
 });
-router.put("/:id", auth, admin, async (req, res, next) => {
+router.put("/status", auth, admin, async (req, res, next) => {
+    console.log("Server Side", req.body);
     const question = await Question.update(
-        {questionId: req.params.id},
-        {status: true},
+        {_id: req.body._id},
+        {status: req.body.status},
         {upsert: true, new: true}
     );
     if (!question)

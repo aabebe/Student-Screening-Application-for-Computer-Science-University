@@ -12,12 +12,23 @@ export class AdminstaffComponent implements OnInit {
 
   constructor(public adminStaff: AdminstaffService) {
     console.log('Service Called');
-    adminStaff.getStaffList().subscribe(data => {
+    this.getAllStaff();
+  }
+
+  ngOnInit() {
+  }
+
+  getAllStaff() {
+    this.adminStaff.getStaffList().subscribe(data => {
       this.staffList = data;
     });
   }
 
-  ngOnInit() {
+  changeStatus(staff) {
+    staff.status = !staff.status;
+    this.adminStaff.updateActiveDeactiveStatus(staff).subscribe(data => {
+      this.getAllStaff();
+    });
   }
 
 }

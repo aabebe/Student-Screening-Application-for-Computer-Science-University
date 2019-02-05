@@ -45,14 +45,18 @@ router.get("/:id", auth, (req, res) => {
         res.send(staff);
     });
 });
-router.put("/:id/update", auth, admin, (req, res) => {
-    Staff.findByIdAndUpdate(req.params.id, {$set: req.body}, function (
-        err,
-        staff
-    ) {
-        console.log(req.body);
-        if (err) return next(err);
-        res.send("Staff udpated.");
-    });
+router.put("/status", auth, admin, async (req, res) => {
+
+    const staff = await Staff.update(
+        {_id: req.body._id},
+        {status: req.body.status},
+        {upsert: true, new: true}
+    );
+    if (!staff)
+        return res.json({
+            status: 404,
+            error: "The question with the given id was not found"
+        });
+    res.status(200);
 });
 module.exports = router;

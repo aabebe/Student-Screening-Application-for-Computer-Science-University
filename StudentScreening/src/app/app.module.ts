@@ -17,6 +17,7 @@ import {AdminComponent} from './admin/admin.component';
 import {UtilComponentComponent} from './util-component/util-component.component';
 import {QuestionComponent} from './question/question.component';
 import {AdminstaffComponent} from './adminstaff/adminstaff.component';
+import {AddQuestionComponent} from './add-question/add-question.component';
 
 import {QuestionServiceService} from './services/question-service.service';
 
@@ -26,6 +27,7 @@ import {QuestionServiceService} from './services/question-service.service';
     StaffStudentDetailComponent,
     LoginScreenComponent,
     AdminComponent,
+    AddQuestionComponent,
     AdminstaffComponent,
     UtilComponentComponent,
     QuestionComponent
@@ -48,12 +50,15 @@ import {QuestionServiceService} from './services/question-service.service';
           path: '',
           outlet: 'question',
           component: QuestionComponent
-        },
-          {
-            path: '',
-            outlet: 'adminstaff',
-            component: AdminstaffComponent
-          }
+        }, {
+          path: '',
+          outlet: 'adminstaff',
+          component: AdminstaffComponent
+        }, {
+          path: '',
+          outlet: 'addquestion',
+          component: AddQuestionComponent
+        }
         ]
       }
     ])
