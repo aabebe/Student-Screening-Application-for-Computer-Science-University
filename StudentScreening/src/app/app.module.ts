@@ -39,5 +39,5 @@ import {QuestionServiceService} from './question-service.service';
   bootstrap: [AppComponent]
 })
 
-export class AppModule{
+export class AppModule {
 }
