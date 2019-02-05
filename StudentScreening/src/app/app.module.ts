@@ -1,26 +1,31 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
+import {LoginScreenComponent} from './login-screen/login-screen.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {UtilComponentComponent} from './util-component/util-component.component';
 import {AdminComponent} from './admin/admin.component';
-import {RouterModule} from '@angular/router';
 import {QuestionComponent} from './question/question.component';
+
 import {QuestionServiceService} from './question-service.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
-    QuestionComponent
+    QuestionComponent,
+    LoginScreenComponent,
+    UtilComponentComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
-      {
+      {path: '', component: LoginScreenComponent}, {
         path: 'admin', component: AdminComponent,
         children: [{
           path: '',
@@ -33,5 +38,6 @@ import {QuestionServiceService} from './question-service.service';
   providers: [QuestionServiceService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
+
+export class AppModule{
 }
