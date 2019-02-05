@@ -1,38 +1,44 @@
 const express = require("express");
 const router = express.Router();
 const Question = require("../models/question");
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
-router.get("/:id", async (req, res, next) => {
-  const question = await Question.find({ questionId: req.params.id });
+router.get("/:id", auth, admin, async (req, res, next) => {
+  const count = parseInt(req.params.id);
+  console.log(count);
+  const question = await Question.find({ status: "activated" }).limit(3);
   console.log(question);
   if (!question)
-    res
-      .status(404)
-      .json({ error: "The question with the given id was not found" });
+    res.json({
+      status: 404,
+      error: "The question with the given id was not found"
+    });
 
   res.status(200).json(question);
 });
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", auth, admin, async (req, res, next) => {
   const question = await Question.update(
     { questionId: req.params.id },
-    { status: "activated" },
+    { status: true },
     { upsert: true, new: true }
   );
   if (!question)
-    return res
-      .status(404)
-      .json({ error: "The question with the given id was not found" });
+    return res.json({
+      status: 404,
+      error: "The question with the given id was not found"
+    });
   res.status(200);
 });
-router.get("/", async (req, res, next) => {
+router.get("/", auth, admin, async (req, res, next) => {
   try {
-    const question = await Question.find().sort("questionId");
+    const question = await Question.find({ status: true }).sort("questionId");
     res.status(200).json(question);
   } catch (error) {
     next(error);
   }
 });
-router.post("/", async (req, res, next) => {
+router.post("/", auth, admin, async (req, res, next) => {
   let question = new Question({
     question: req.body.question,
     isActivated: req.body.isActivated,
