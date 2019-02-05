@@ -23,19 +23,19 @@ export class StaffService {
 //       }
   getAllStaff() {
     console.log('comming...');
-    return this.http.get('http://localhost:4000/staff');
+    return this.http.get(`${this.BaseUrl}`);
   }
 
   getStaff(id: string) {
-    return this.http.get('http://localhost:4000/staff' + id);
+    return this.http.get(`${this.BaseUrl}` + id);
   }
 
   insertStaff(staff: Staff) {
-    return this.http.post('http://localhost:4000/staff/create', staff);
+    return this.http.post(`${this.BaseUrl}`, staff);
   }
 
   updateStaff(staff: Staff) {
-    return this.http.put('http://localhost:4000/' + staff.name + '/update', staff);
+    return this.http.put(`${this.BaseUrl}` + staff.name + '/update', staff);
   }
 
 }

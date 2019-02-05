@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StaffService } from '../services/staff.service';
 import { Subscription } from 'rxjs';
-
+import { StudentsService } from '../services/students.service';
 @Component({
   selector: 'app-staff-student-detail',
   template: `
@@ -15,8 +15,8 @@ import { Subscription } from 'rxjs';
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
-              <th>Link</th>
-              <th>Check Status</th>
+              <th>Email</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tfoot>
@@ -28,24 +28,28 @@ import { Subscription } from 'rxjs';
             <tr *ngFor="let stu of students">
               <td>{{ stu.firstName }}</td>
               <td>{{ stu.lastName }}</td>
+              <td>{{stu.email}}</td>
               <td>
-                <button
-                  class="uk-button uk-button-primary"
-                  [id]="stu._id"
-                  (click)="sendInvitation(stu._id)"
-                >
-                  Send Invitation
-                </button>
+                <div *ngIf="stu.status=='SEND'">
+                  <button
+                    class="uk-button uk-button-primary"
+                    [id]="stu._id"
+                    (click)="sendInvitation(stu._id)"
+                  >
+                    Send Invitation
+                  </button>
+                </div>
+                <div *ngIf="stu.status=='SENT'">
+                    SENT
+                </div>
+                <div *ngIf="stu.status=='PASS'">
+                    PASS
+                </div>
+                <div *ngIf="stu.status=='FAIL'">
+                    FAIL
+                </div>
               </td>
-              <td>
-                <button
-                  class="uk-button uk-button-primary"
-                  [name]="stu._id"
-                  (click)="checkStatus(stu._id)"
-                >
-                  Check Status
-                </button>
-              </td>
+
             </tr>
           </tbody>
         </table>
@@ -58,33 +62,38 @@ export class StaffStudentDetailComponent implements OnInit {
   getStudentSubscriber: Subscription;
   students: any[] = [];
   isLoaded = false;
-  constructor(private staffService: StaffService) {
-    console.log('I\'m in the constructorCon');
+  public studentList;
+  constructor(private staffService: StaffService, private studentsService: StudentsService) {
+    
     const testing = staffService.getAllStaff();
-    console.log(testing);
+    console.log('Service Called');
+        studentsService.getStudentList().subscribe(data => {
+        this.studentList = data;
+    });
   }
+
+
   sendInvitation(id) {
-    console.log('test');
+       let student = this.students.filter(st => st._id == id);
+    console.log(student);
   }
-  checkStatus() {}
+  checkStatus() {
+
+  }
 
   ngOnInit() {
-    this.getStudentSubscriber = this.staffService
-      .getAllStaff()
+    this.getStudentSubscriber = this.studentsService
+      .getStudentList()
       .subscribe(data => {
         console.log('asffdfd: ', data[0]);
-        //  if(data['status'] ==200){
         this.isLoaded = true;
-        // tslint:disable-next-line:forin
         for (const i in data) {
           this.students.push(data[i]);
           console.log(data[i]);
         }
-        // this.students = data['data'];
-        // }
-        // else{
+
         console.log(this.students);
-        // }
+
       });
   }
 }

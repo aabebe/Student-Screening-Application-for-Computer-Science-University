@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {StaffService} from './services/staff.service';
 import {AdminstaffService} from './services/adminstaff.service';
 import {StaffStudentDetailComponent} from './components/staff-student-detail.component';
-
+import {StudentsService} from './services/students.service';
 
 import {AppComponent} from './app.component';
 import {LoginScreenComponent} from './login-screen/login-screen.component';
@@ -58,7 +58,7 @@ import {QuestionServiceService} from './services/question-service.service';
       }
     ])
   ],
-  providers: [QuestionServiceService, StaffService, AdminstaffService],
+  providers: [QuestionServiceService, StaffService, AdminstaffService, StudentsService],
   bootstrap: [AppComponent]
 })
 
