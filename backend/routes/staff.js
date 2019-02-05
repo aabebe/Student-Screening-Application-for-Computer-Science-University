@@ -1,6 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Staff = require('../models/staff.model');
+const Staff = require("../models/staff.model");
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
+//var bcrypt = require('bcrypt-nodejs');
 
 router.get('/', (req, res) => {
     Staff.find({role: "Staff"}, (err, data) => {
@@ -36,17 +39,20 @@ router.post('/create', (req, res) => {
         console.log("Middling...")
     });
 });
-router.get('/:id', (req, res) => {
+router.get("/:id", auth, (req, res) => {
     Staff.findById(req.params.id, function (err, staff) {
         if (err) return next(err);
         res.send(staff);
-    })
+    });
 });
-router.put('/:id/update', (req, res) => {
-    Staff.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, staff) {
-        console.log(req.body)
+router.put("/:id/update", auth, admin, (req, res) => {
+    Staff.findByIdAndUpdate(req.params.id, {$set: req.body}, function (
+        err,
+        staff
+    ) {
+        console.log(req.body);
         if (err) return next(err);
-        res.send('Staff udpated.');
+        res.send("Staff udpated.");
     });
 });
 module.exports = router;
