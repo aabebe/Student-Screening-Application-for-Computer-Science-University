@@ -32,7 +32,7 @@ router.put("/:id", auth,admin, async (req, res, next) => {
 });
 router.get("/", auth,admin, async (req, res, next) => {
   try {
-    const question = await Question.find({ status: "activated" }).sort(
+    const question = await Question.find({ status: true }).sort(
       "questionId"
     );
     res.status(200).json(question);
