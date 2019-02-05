@@ -17,10 +17,10 @@ router.get("/:id", auth, admin, async (req, res, next) => {
 
   res.status(200).json(question);
 });
-router.put("/:id", auth,admin, async (req, res, next) => {
+router.put("/:id", auth, admin, async (req, res, next) => {
   const question = await Question.update(
     { questionId: req.params.id },
-    { status: "deactivated" },
+    { status: true },
     { upsert: true, new: true }
   );
   if (!question)
@@ -30,17 +30,15 @@ router.put("/:id", auth,admin, async (req, res, next) => {
     });
   res.status(200);
 });
-router.get("/", auth,admin, async (req, res, next) => {
+router.get("/", auth, admin, async (req, res, next) => {
   try {
-    const question = await Question.find({ status: true }).sort(
-      "questionId"
-    );
+    const question = await Question.find({ status: true }).sort("questionId");
     res.status(200).json(question);
   } catch (error) {
     next(error);
   }
 });
-router.post("/", auth,admin, async (req, res, next) => {
+router.post("/", auth, admin, async (req, res, next) => {
   let question = new Question({
     question: req.body.question,
     isActivated: req.body.isActivated,
