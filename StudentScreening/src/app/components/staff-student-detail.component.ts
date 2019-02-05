@@ -15,6 +15,7 @@ import { StudentsService } from '../services/students.service';
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Email</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -27,14 +28,26 @@ import { StudentsService } from '../services/students.service';
             <tr *ngFor="let stu of students">
               <td>{{ stu.firstName }}</td>
               <td>{{ stu.lastName }}</td>
+              <td>{{stu.email}}</td>
               <td>
-                <button
-                  class="uk-button uk-button-primary"
-                  [id]="stu._id"
-                  (click)="sendInvitation(stu._id)"
-                >
-                  Send Invitation
-                </button>
+                <div *ngIf="stu.status=='SEND'">
+                  <button
+                    class="uk-button uk-button-primary"
+                    [id]="stu._id"
+                    (click)="sendInvitation(stu._id)"
+                  >
+                    Send Invitation
+                  </button>
+                </div>
+                <div *ngIf="stu.status=='SENT'">
+                    SENT
+                </div>
+                <div *ngIf="stu.status=='PASS'">
+                    PASS
+                </div>
+                <div *ngIf="stu.status=='FAIL'">
+                    FAIL
+                </div>
               </td>
 
             </tr>
@@ -51,18 +64,18 @@ export class StaffStudentDetailComponent implements OnInit {
   isLoaded = false;
   public studentList;
   constructor(private staffService: StaffService, private studentsService: StudentsService) {
-    console.log('I\'m in the constructorCon');
+    
     const testing = staffService.getAllStaff();
     console.log('Service Called');
         studentsService.getStudentList().subscribe(data => {
         this.studentList = data;
     });
-    console.log(this.studentList);
   }
 
 
   sendInvitation(id) {
-    console.log('test');
+       let student = this.students.filter(st => st._id == id);
+    console.log(student);
   }
   checkStatus() {
 
