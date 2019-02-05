@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.post("/", auth, async (req, res) => {
   try {
-      const student = req.body;
-      
+    const student = req.body;
+
     let transporter = nodemailer.createTransport({
       service: "gmail",
       port: 465,
@@ -19,16 +19,28 @@ router.post("/", auth, async (req, res) => {
     let mailOptions = {
       from: "andualemhailu@gmail.com",
       to: student.email,
-      subject: "Invitation",
-      html: "<h1>Welcome</h1><p>That was easy!</p>"
+      subject: "Programming Exam Pre-Test",
+        html: `
+      <h>Maharishi Universt of Management</h>
+        <p>click on the link to take the pre test</p>
+        <p style ="border-radius :2px" bgcolor="red" >
+        <a href="http://localhost:4200/mail" target="_blank"  
+        style="padding: 8px 12px; border: 1px solid #ED2939;
+        border-radius: 2px;font-family: Helvetica, Arial, sans-serif;" 
+        >
+        Click Here to Begin
+        </a>
+        </p>
+      `
+              
     };
     console.log(constPASS.MAIL_PASS);
     let info = await transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log(err);
       } else {
-          console.log(`Email sent : ${info.response}`);
-          res.json(info);
+        console.log(`Email sent : ${info.response}`);
+        res.json(info);
       }
     });
   } catch (error) {
