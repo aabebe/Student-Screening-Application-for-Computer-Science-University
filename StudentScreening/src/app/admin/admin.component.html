@@ -1,0 +1,22 @@
+<ngb-tabset>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <b (click)="routeComponent('question')">Active</b>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <router-outlet name="question"></router-outlet>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Staff</b></ng-template>
+    <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+      <p>Staff page.</p>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Question</b></ng-template>
+    <ng-template ngbTabContent>
+      <p>Review.</p>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
