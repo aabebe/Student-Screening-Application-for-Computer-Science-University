@@ -16,7 +16,7 @@ import {AdminComponent} from './admin/admin.component';
 import {UtilComponentComponent} from './util-component/util-component.component';
 import {QuestionComponent} from './question/question.component';
 
-import {QuestionServiceService} from './question-service.service';
+import {QuestionServiceService} from './services/question-service.service';
 
 @NgModule({
   declarations: [

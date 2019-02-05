@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {QuestionServiceService} from '../question-service.service';
+import {QuestionServiceService} from '../services/question-service.service';
+
 
 const COUNTRIES = [
   {
@@ -27,12 +28,21 @@ const COUNTRIES = [
 })
 export class QuestionComponent implements OnInit {
   countries = COUNTRIES;
+  questions;
+  public status: Boolean = false;
+
   constructor(public questionService: QuestionServiceService) {
     console.log('Service Called');
-    questionService.getServerQuestion();
+    questionService.getServerQuestion().subscribe(data => {
+      this.questions = data;
+    });
   }
 
   ngOnInit() {
+  }
+
+  changeStatus() {
+    console.log('Coming here');
   }
 
 }
