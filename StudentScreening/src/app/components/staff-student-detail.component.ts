@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
           <th>First Name</th>
           <th>Last Name</th>
           <th>Link</th>
+          <th>Check Status</th>
       </tr>
   </thead>
   <tfoot>
@@ -24,6 +25,7 @@ import { Subscription } from 'rxjs';
           <td>{{stu.firstName}}</td>
           <td>{{stu.lastName}}</td>
           <td><button class="uk-button uk-button-primary" [id]='stu._id' (click)='sendInvitation(stu._id)'>Send Invitation</button></td>
+          <td><button class="uk-button uk-button-primary" [name]='stu._id' (click)='checkStatus(stu._id)'>Check Status</button></td>
       </tr>
   </tbody>
 </table>
@@ -39,7 +41,13 @@ export class StaffStudentDetailComponent implements OnInit {
       const testing = staffService.getAllStaff();
       console.log(testing);
    }
+sendInvitation(id){
+    console.log("test")
 
+
+
+
+  }
   ngOnInit() {
       this.getStudentSubscriber =  this.staffService.getAllStaff().subscribe(data =>{
        console.log('asffdfd: ',data[0]);
