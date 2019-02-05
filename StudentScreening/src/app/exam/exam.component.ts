@@ -7,11 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./exam.component.css']
 })
 export class ExamComponent implements OnInit {
-  constructor( private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
   onStart() {
     this.router.navigate(['examscreen']);
-
   }
 }
