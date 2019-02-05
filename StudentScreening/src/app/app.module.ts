@@ -1,5 +1,10 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { StaffService} from './service/staff.service';
+import { StaffStudentDetailComponent } from './components/staff-student-detail.component';
+import { RoutingModule } from './routing.module';
+
 
 import {AppComponent} from './app.component';
 import {LoginScreenComponent} from './login-screen/login-screen.component';
@@ -16,19 +21,23 @@ import {QuestionServiceService} from './services/question-service.service';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
-    QuestionComponent,
+    StaffStudentDetailComponent,
     LoginScreenComponent,
-    UtilComponentComponent
+    AdminComponent,
+    UtilComponentComponent,
+    QuestionComponent
   ],
+
   imports: [
     BrowserModule,
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: LoginScreenComponent}, {
-        path: 'admin', component: AdminComponent,
+      {path: '', component: LoginScreenComponent}, 
+      {path: 'staff', component: StaffStudentDetailComponent
+},
+        {path: 'admin', component: AdminComponent,
         children: [{
           path: '',
           outlet: 'question',
@@ -37,7 +46,7 @@ import {QuestionServiceService} from './services/question-service.service';
       }
     ])
   ],
-  providers: [QuestionServiceService],
+  providers: [QuestionServiceService, StaffService],
   bootstrap: [AppComponent]
 })
 
