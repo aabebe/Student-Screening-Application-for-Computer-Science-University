@@ -22,11 +22,11 @@ export class StaffService {
   //                   .catch((err)=>{console.log("Error when fetching..")});
   //       }
   getAllStaff() {
-    console.log('comming...');
+    console.log('comminggs...');
     // console.log(this.http.get(this.BaseUrl+'/staff/test'));
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({ 'x-auth-token': token });
-    return this.http.get(this.BaseUrl + 'test', { headers: headers });
+    return this.http.get(`http://localhost:4000/staff` , { headers: headers });
   }
 
   getStaff(id: string) {

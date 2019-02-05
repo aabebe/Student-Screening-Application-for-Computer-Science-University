@@ -23,7 +23,7 @@ export class StaffService {
 //       }
   getAllStaff() {
     console.log('comming...');
-    return this.http.get(this.BaseUrl + 'test');
+    return this.http.get('http://localhost:4000/staff');
   }
 
   getStaff(id: string) {
