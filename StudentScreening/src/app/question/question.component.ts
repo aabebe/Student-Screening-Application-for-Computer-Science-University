@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionServiceService} from '../services/question-service.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -11,19 +12,33 @@ export class QuestionComponent implements OnInit {
   questions;
   public status: Boolean = false;
 
-  constructor(public questionService: QuestionServiceService) {
-    console.log('Service Called');
-    questionService.getServerQuestion().subscribe(data => {
-      this.questions = data;
-    });
+  constructor(public questionService: QuestionServiceService, private router: Router) {
+    this.getQuestions();
   }
 
   ngOnInit() {
   }
 
-  changeStatus(isChecked) {
-    console.log('Coming here' + isChecked);
-    isChecked = !isChecked;
+
+  getQuestions() {
+    this.questionService.getServerQuestion().subscribe(data => {
+      this.questions = data;
+      console.log(data);
+    });
+  }
+
+  changeStatus(question) {
+    console.log(question);
+    question.status = !question.status;
+    this.questionService.updateActiveDeactiveStatus(question).subscribe(data => {
+      this.getQuestions();
+    });
+
+  }
+
+  addQuestion() {
+    console.log('Add New Question');
+    this.router.navigate(['addquestion']);
   }
 
 }

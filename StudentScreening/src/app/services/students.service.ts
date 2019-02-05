@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import Keys from '../keys/Keys';
 import {Observable} from 'rxjs';
+
 export interface Student {
   name: string;
 }
@@ -21,6 +22,7 @@ export class StudentsService {
     console.log('the tokent is' + token);
     return this.http.get(Keys.API.END_POINTS.ADMISSION_STAFF, {headers: headers});
   }
+
   getAllStudents() {
     console.log('comming...');
     return this.http.get(`${this.BaseUrl}`);

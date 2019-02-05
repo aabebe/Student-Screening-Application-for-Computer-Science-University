@@ -1,18 +1,19 @@
-<button mat-raised-button color="primary">+ add</button>
+<button mat-raised-button color="primary" (click)="addQuestion()">+ add</button>
 <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
     <th scope="col">Question</th>
-    <th scope="col">Status</th>
+    <th scope="col">Active/Deactive</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let question of questions; index as i">
     <th scope="row">{{ i + 1 }}</th>
     <td>{{ question.question }}</td>
-    <td>
-      <input type="checkbox" [ngModel]="question.status" (change)="changeStatus(isChecked?true:false)">
+    <td align="center">
+
+      <input type="checkbox" [ngModel]="question.status" (change)="changeStatus(question)">
     </td>
 
   </tr>

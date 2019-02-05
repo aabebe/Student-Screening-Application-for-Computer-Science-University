@@ -6,7 +6,7 @@
     <th scope="col">Title</th>
     <th scope="col">Name</th>
     <th scope="col">Email</th>
-    <th scope="col">Status</th>
+    <th scope="col">Active/Deactive</th>
   </tr>
   </thead>
   <tbody>
@@ -15,8 +15,8 @@
     <td>{{ staff.title}}</td>
     <td>{{ staff.firstName + " " + staff.lastName}}</td>
     <td>{{ staff.email }}</td>
-    <td>
-      <input type="checkbox" [ngModel]="staff.status" (change)="changeStatus(staff.status)">
+    <td align="center">
+      <input type="checkbox" [ngModel]="staff.status" (change)="changeStatus(staff) ">
     </td>
 
   </tr>
