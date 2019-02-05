@@ -5,9 +5,10 @@ import {AppComponent} from './app.component';
 import {LoginScreenComponent} from './login-screen/login-screen.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Routes, RouterModule} from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
-import {UtilComponentComponent} from './util-component/util-component.component';
 import {AdminComponent} from './admin/admin.component';
+import {UtilComponentComponent} from './util-component/util-component.component';
 import {QuestionComponent} from './question/question.component';
 
 import {QuestionServiceService} from './question-service.service';
@@ -22,6 +23,7 @@ import {QuestionServiceService} from './question-service.service';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
@@ -39,5 +41,5 @@ import {QuestionServiceService} from './question-service.service';
   bootstrap: [AppComponent]
 })
 
-export class AppModule{
+export class AppModule {
 }
