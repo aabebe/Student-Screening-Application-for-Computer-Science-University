@@ -7,11 +7,16 @@ import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { UtilComponentComponent } from './util-component/util-component.component';
 
-const appRoutes: Routes = [{ path: '', component: LoginScreenComponent }];
+
+const appRoutes: Routes = [
+  { path: '', component: LoginScreenComponent }
+
+];
 
 @NgModule({
-  declarations: [AppComponent, LoginScreenComponent],
+  declarations: [AppComponent, LoginScreenComponent, UtilComponentComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

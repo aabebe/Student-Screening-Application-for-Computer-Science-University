@@ -33,9 +33,29 @@ export class LoginScreenComponent implements OnInit {
   onSubmit() {
     const email = this.signinForm.value.userData.email;
     const password = this.signinForm.value.userData.password;
-    this.httpService.VerifyLogin(email, password).subscribe(resp => {
-      console.log(resp);
-    });
+    this.httpService.VerifyLogin(email, password).subscribe(
+      resp => {
+        if (resp.status === 404) {
+          alert(resp.error);
+        }
+        const token = resp.message;
+        const role = resp.staff.role;
+        localStorage.setItem('token', JSON.stringify(token));
+
+        console.log(resp);
+        console.log(role);
+        console.log(token);
+        if (role === 'Admin') {
+          console.log('somethingis working');
+          this.router.navigate(['/admin']);
+        } else if (role === 'Staff') {
+          this.router.navigate(['staff']);
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
     console.log(email);
     console.log(password);
     console.log(this.signinForm);
