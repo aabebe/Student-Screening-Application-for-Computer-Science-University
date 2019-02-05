@@ -20,6 +20,8 @@ import {AdminstaffComponent} from './adminstaff/adminstaff.component';
 import {AddQuestionComponent} from './add-question/add-question.component';
 
 import {QuestionServiceService} from './services/question-service.service';
+import {ExamComponent} from './exam/exam.component';
+import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {QuestionServiceService} from './services/question-service.service';
     AddQuestionComponent,
     AdminstaffComponent,
     UtilComponentComponent,
-    QuestionComponent
+    QuestionComponent,
+    ExamComponent,
+    ExamScreenComponent
   ],
 
   imports: [
@@ -42,8 +46,11 @@ import {QuestionServiceService} from './services/question-service.service';
     RouterModule.forRoot([
       {path: '', component: LoginScreenComponent},
       {
-        path: 'staff', component: StaffStudentDetailComponent
+        path: 'staff',
+        component: StaffStudentDetailComponent
       },
+      {path: 'mail', component: ExamComponent},
+      {path: 'examscreen', component: ExamScreenComponent},
       {
         path: 'admin', component: AdminComponent,
         children: [{
@@ -63,9 +70,13 @@ import {QuestionServiceService} from './services/question-service.service';
       }
     ])
   ],
-  providers: [QuestionServiceService, StaffService, AdminstaffService, StudentsService],
+  providers: [
+    QuestionServiceService,
+    StaffService,
+    AdminstaffService,
+    StudentsService
+  ],
   bootstrap: [AppComponent]
 })
-
 export class AppModule {
 }

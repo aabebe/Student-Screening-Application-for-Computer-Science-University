@@ -4,58 +4,7 @@ import { Subscription } from 'rxjs';
 import { StudentsService } from '../services/students.service';
 @Component({
   selector: 'app-staff-student-detail',
-  template: `
-    <div class="container">
-      <div class="row">
-        <table class="table" *ngIf="isLoaded">
-          <caption style="text-align:center">
-            Students List
-          </caption>
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <td></td>
-            </tr>
-          </tfoot>
-          <tbody>
-            <tr *ngFor="let stu of students">
-              <td>{{ stu.firstName }}</td>
-              <td>{{ stu.lastName }}</td>
-              <td>{{stu.email}}</td>
-              <td>
-                <div *ngIf="stu.status=='SEND'">
-                  <button
-                    class="uk-button uk-button-primary"
-                    [id]="stu._id"
-                    (click)="sendInvitation(stu._id)"
-                  >
-                    Send Invitation
-                  </button>
-                </div>
-                <div *ngIf="stu.status=='SENT'">
-                    SENT
-                </div>
-                <div *ngIf="stu.status=='PASS'">
-                    PASS
-                </div>
-                <div *ngIf="stu.status=='FAIL'">
-                    FAIL
-                </div>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `,
+  templateUrl: './staff-student-detail.component.html',
   styles: []
 })
 export class StaffStudentDetailComponent implements OnInit {
@@ -63,23 +12,22 @@ export class StaffStudentDetailComponent implements OnInit {
   students: any[] = [];
   isLoaded = false;
   public studentList;
-  constructor(private staffService: StaffService, private studentsService: StudentsService) {
-    
+  constructor(
+    private staffService: StaffService,
+    private studentsService: StudentsService
+  ) {
     const testing = staffService.getAllStaff();
     console.log('Service Called');
-        studentsService.getStudentList().subscribe(data => {
-        this.studentList = data;
+    studentsService.getStudentList().subscribe(data => {
+      this.studentList = data;
     });
   }
 
-
   sendInvitation(id) {
-       let student = this.students.filter(st => st._id == id);
+    const student = this.students.filter(st => st._id === id);
     console.log(student);
   }
-  checkStatus() {
-
-  }
+  checkStatus() {}
 
   ngOnInit() {
     this.getStudentSubscriber = this.studentsService
@@ -93,7 +41,6 @@ export class StaffStudentDetailComponent implements OnInit {
         }
 
         console.log(this.students);
-
       });
   }
 }

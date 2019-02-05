@@ -1,25 +1,34 @@
-const Keys = require('../keys/Keys');
+const Keys = require("../keys/Keys");
 
-var db = require('mongoose');
-var Schema = db.Schema;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-const Students = db.model('students', new Schema({
-    firstName: {type: String},
-    lastName: {type: String},
-    gender: {type: String},
-    status: { type: String },
-    email: {
-        type: String,
-    },
-    exam: {
-        type: Array,
-        id: {type: String},
-        question: {
-            type: String,
-            answer: {type: Array}
-        }
+const studentSchema = new Schema({
+  firstName: { type: String },
+  lastName: { type: String },
+  gender: { type: String },
+  status: { type: String },
+  email: {
+    type: String
+  },
+  exam: {
+    type: Array,
+    id: { type: String },
+    question: {
+      type: String,
+      answer: { type: Array }
     }
-}));
+  }
+});
 
+studentSchema.methods.generateAuthToken = function() {
+  const token = jwt.sign(
+    { _id: this._id, firstName: this.firstName, email: this.email },
+    "jwtPrivateKey"
+  );
+  return token;
+};
+
+const Students = mongoose.model("students", studentSchema);
 
 module.exports = Students;
