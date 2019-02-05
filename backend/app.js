@@ -38,14 +38,12 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/auth", authRouter);
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/question", questionRouter);
 app.use(lessMiddleware(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/question", questionRouter);
 app.use("/students", studentsRouter);
 app.use("/staff", staffRouter);
 

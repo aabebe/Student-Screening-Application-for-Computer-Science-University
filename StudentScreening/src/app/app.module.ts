@@ -1,9 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
-import { StaffService} from './service/staff.service';
-import { StaffStudentDetailComponent } from './components/staff-student-detail.component';
-import { RoutingModule } from './routing.module';
+import {StaffService} from './services/staff.service';
+import {AdminstaffService} from './services/adminstaff.service';
+import {StaffStudentDetailComponent} from './components/staff-student-detail.component';
 
 
 import {AppComponent} from './app.component';
@@ -15,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AdminComponent} from './admin/admin.component';
 import {UtilComponentComponent} from './util-component/util-component.component';
 import {QuestionComponent} from './question/question.component';
+import {AdminstaffComponent} from './adminstaff/adminstaff.component';
 
 import {QuestionServiceService} from './services/question-service.service';
 
@@ -24,6 +26,7 @@ import {QuestionServiceService} from './services/question-service.service';
     StaffStudentDetailComponent,
     LoginScreenComponent,
     AdminComponent,
+    AdminstaffComponent,
     UtilComponentComponent,
     QuestionComponent
   ],
@@ -31,22 +34,31 @@ import {QuestionServiceService} from './services/question-service.service';
   imports: [
     BrowserModule,
     NgbModule,
+    FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: LoginScreenComponent}, 
-      {path: 'staff', component: StaffStudentDetailComponent
-},
-        {path: 'admin', component: AdminComponent,
+      {path: '', component: LoginScreenComponent},
+      {
+        path: 'staff', component: StaffStudentDetailComponent
+      },
+      {
+        path: 'admin', component: AdminComponent,
         children: [{
           path: '',
           outlet: 'question',
           component: QuestionComponent
-        }]
+        },
+          {
+            path: '',
+            outlet: 'adminstaff',
+            component: AdminstaffComponent
+          }
+        ]
       }
     ])
   ],
-  providers: [QuestionServiceService, StaffService],
+  providers: [QuestionServiceService, StaffService, AdminstaffService],
   bootstrap: [AppComponent]
 })
 

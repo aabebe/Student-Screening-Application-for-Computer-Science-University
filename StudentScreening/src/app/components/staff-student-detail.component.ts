@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaffService } from './../service/staff.service';
+import { StaffService } from '../services/staff.service';
 import { Subscription } from 'rxjs';
 
 @Component({
