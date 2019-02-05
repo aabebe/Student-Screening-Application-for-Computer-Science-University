@@ -34,7 +34,7 @@ import {QuestionServiceService} from './question-service.service';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: LoginScreenComponent}, 
+      {path: '', component: LoginScreenComponent},
       {path: 'staff', component: StaffStudentDetailComponent
 },
         {path: 'admin', component: AdminComponent,
