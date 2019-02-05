@@ -10,7 +10,7 @@ import {AppComponent} from './app.component';
 import {LoginScreenComponent} from './login-screen/login-screen.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Routes, RouterModule} from '@angular/router';
-//import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import {AdminComponent} from './admin/admin.component';
 import {UtilComponentComponent} from './util-component/util-component.component';
@@ -22,7 +22,10 @@ import {QuestionServiceService} from './question-service.service';
   declarations: [
     AppComponent,
     StaffStudentDetailComponent,
-
+    LoginScreenComponent,
+    AdminComponent,
+    UtilComponentComponent,
+    QuestionComponent
   ],
 
   imports: [
@@ -31,8 +34,10 @@ import {QuestionServiceService} from './question-service.service';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: LoginScreenComponent}, {
-        path: 'admin', component: AdminComponent,
+      {path: '', component: LoginScreenComponent}, 
+      {path: 'staff', component: StaffStudentDetailComponent
+},
+        {path: 'admin', component: AdminComponent,
         children: [{
           path: '',
           outlet: 'question',
