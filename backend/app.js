@@ -14,7 +14,7 @@ let db = new DataBase();
 var staffRouter = require("./routes/staff");
 const questionRouter = require("./routes/question");
 const authRouter = require("./routes/auth");
-
+const mailRouter = require('./routes/mail');
 
 var studentsRouter = require("./routes/student");
 
@@ -43,6 +43,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/question", questionRouter);
 app.use("/students", studentsRouter);
 app.use("/staff", staffRouter);
+app.use('/mail', mailRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

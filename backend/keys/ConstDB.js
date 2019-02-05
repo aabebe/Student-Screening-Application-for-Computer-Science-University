@@ -1,8 +1,8 @@
 const ConstDB = {
-    DB_HOST: "ds221155.mlab.com:21155/student_screening",
-    DB_USER: "user",
-    DB_PASS: "user123"
-
+  DB_HOST: "ds221155.mlab.com:21155/student_screening",
+  DB_USER: "user",
+  DB_PASS: "user123",
+  MAIL_PASS: "andualem@etr246603"
 };
 
 module.exports = ConstDB;

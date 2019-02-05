@@ -7,7 +7,10 @@ const Students = db.model('students', new Schema({
     firstName: {type: String},
     lastName: {type: String},
     gender: {type: String},
-    status: {type: String},
+    status: { type: String },
+    email: {
+        type: String,
+    },
     exam: {
         type: Array,
         id: {type: String},
