@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpHeaders} from '@angular/common/http';
 
 export interface Staff {
   name: string;
@@ -10,6 +10,7 @@ export interface Staff {
 })
 export class StaffService {
   public BaseUrl: String = 'http://localhost:4000/staff/';
+  public BaseUrlEmail: String = 'http://localhost:4000/mail/';
 
   constructor(private http: HttpClient) {
   }
@@ -22,7 +23,6 @@ export class StaffService {
 //                   .catch((err)=>{console.log("Error when fetching..")});
 //       }
   getAllStaff() {
-    console.log('comming...');
     return this.http.get(`${this.BaseUrl}`);
   }
 
@@ -38,4 +38,12 @@ export class StaffService {
     return this.http.put(`${this.BaseUrl}` + staff.name + '/update', staff);
   }
 
+  sendInvitation(studentBody){
+    console.log("into email send..")
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token})
+     return this.http.post(`${this.BaseUrlEmail}`, studentBody, {
+          headers: headers
+  });
+  }
 }
