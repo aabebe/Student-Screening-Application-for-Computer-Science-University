@@ -1,16 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Staff= require('../models/staff.model');
-//var bcrypt = require('bcrypt-nodejs');
 
 router.get('/test', (req, res) =>{
-    console.log("tetsing");
-    Staff.find({},(err,data)=>{
-        if(err) {console.log("erroring...")}
-        console.log("bbcing...");
-        res.json(data);
-    })
-    //res.send('Testing controller!');
+    res.send('Testing controller!');
 });
 
 router.post('/create', (req, res) => {
@@ -30,8 +23,7 @@ router.post('/create', (req, res) => {
     );
         
       var new_task = new Staff(staff);
-
-
+        console.log(staff)
         new_task.save(function(err, staff) {
             console.log("BB")
             if (err)
