@@ -38,6 +38,7 @@ export class StaffStudentDetailComponent implements OnInit {
     console.log(studentInfo)
     this.staffService.sendInvitation(studentInfo).subscribe(data=>{
        if(data['status'] ==200){
+           console.log(data)
            console.log("Email Sent sucessfully")
         //swal('Success','Invitation sent for '+ data['message'],'success');
        }

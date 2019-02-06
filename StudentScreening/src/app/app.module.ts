@@ -22,6 +22,7 @@ import {AddQuestionComponent} from './add-question/add-question.component';
 import {QuestionServiceService} from './services/question-service.service';
 import {ExamComponent} from './exam/exam.component';
 import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
     NgbModule,
     FormsModule,
     HttpClientModule,
+    CountdownModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: LoginScreenComponent},

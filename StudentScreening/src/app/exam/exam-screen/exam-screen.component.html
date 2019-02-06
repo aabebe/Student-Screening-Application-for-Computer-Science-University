@@ -1,3 +1,32 @@
-<p>
-  exam-screen works!
-</p>
+<br><br>
+<div class="container">
+  <div class="row container mb-5">
+    <form  [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+             
+        <div class="container mb-5" >
+          <label>Time Left:  </label><countdown [config]="{leftTime: 1000*10}"> $!m!:$!s!</countdown>
+        </div>
+
+        <div class="code-editor" #codeEditor></div>
+        <div class="container mb-5 mt-5">
+          <label for="questionOneDesc">Question One</label><br>
+          {{this.questions[0].question}}
+          <input type="text" class="form-control" id="questionOneDesc" formControlName="questionOneDesc" >
+        </div>
+        <div class="container mb-5 mt-5">
+          <label for="questionTwoDesc">Question Two</label><br>
+          {{this.questions[1].question}}
+          <input type="text" class="form-control" id="questionTwoDesc" formControlName="questionTwoDesc"> 
+        </div>
+        
+        <div class="container">
+          <label for="questionThreeDesc">Question Three</label><br>
+          {{this.questions[2].question}}
+          <input type="text" class="form-control" id="questionThreeDesc" formControlName="questionThreeDesc">
+        </div>
+      </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</div>
