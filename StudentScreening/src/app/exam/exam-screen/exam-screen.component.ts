@@ -23,6 +23,12 @@ export class ExamScreenComponent implements OnInit {
   questionForm : FormGroup
   notify: string;
   config: any = { leftTime: 10, notify: [2, 5] };
+  exam : any[] = [];
+  userId: String;
+  userFirstName: String;
+  userLastName: String;
+  userGender: String;
+  userIsActive: String;
 
   answers: any;
   onStart() {
@@ -54,6 +60,18 @@ export class ExamScreenComponent implements OnInit {
   // @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
   // private codeEditor: ace.Ace.Editor;
   constructor(private studentsService: StudentsService, private questionService:QuestionServiceService, private formbuilder:FormBuilder, private datePipe: DatePipe) {
+      studentsService.getStudentExam("bruckgmk@gmail.com").subscribe((data)=>{
+          console.log("in the student...")
+          this.exam = data[0];
+          this.userId = data[0]._id;
+          this.userFirstName = data[0].firstName;
+          this.userLastName = data[0].lastName;
+          this.userGender = data[0].gender;
+          this.userIsActive = data[0].isActive;
+          console.log(data[0]._id)
+          console.log("The end")
+          
+      });
       questionService.getServerQuestion().subscribe((data)=>{
       //studentsService.
       for(var i = 0; i < 3; i++) {
@@ -79,9 +97,13 @@ export class ExamScreenComponent implements OnInit {
       });
       this.questionForm.valueChanges.subscribe(data=>{
         this.answers = data;
+
+        
+       // console.log(this.exam)
       })
    }
 submitTrigger(){
+  
   //let datePipe;
    let datePipe = this.datePipe.transform(new Date(), 'MMM d, y, h:mm:ss a');
    this.answers.timeLeft = datePipe;
@@ -93,9 +115,15 @@ submitTrigger(){
   this.answers.questionThreeId = this.questions[2]._id
 
   const examObj = {
+    id: this.userId,
     email: "bruckgmk@gmail.com",
     status: "FINISHED",
+    firstName: this.userFirstName,
+    lastName: this.userLastName,
+    isActive: this.userIsActive,
+    gender: this.userGender,
     exam:[
+
           {time:this.answers.timeLeft},
           
           {id: this.answers.questionOneId,question:this.answers.questionOneDesc,answer:this.answers.questionOneAns},
@@ -105,8 +133,12 @@ submitTrigger(){
           {id: this.answers.questionThreeId,question:this.answers.questionThreeDesc,answer:this.answers.questionThreeAns}
     ]
   }
-  this.studentsService.updateStudent(examObj);
-  //console.log(examObj)
+  this.studentsService.postStudentExam(examObj).subscribe((data)=>{
+      if(data['status']==200){
+        console.log("yepi")
+      }
+  });
+  console.log(examObj)
   //StudentsService
 }
   onSubmit() {
