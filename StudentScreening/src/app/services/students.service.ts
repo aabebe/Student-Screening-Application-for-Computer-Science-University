@@ -31,6 +31,10 @@ export class StudentsService {
   getStudent(id: string) {
     return this.http.get(`${this.BaseUrl}` + id);
   }
+  
+  getStudentExam(email: string) {
+    return this.http.get(`${this.BaseUrl}` + email);
+  }
 
   updateStudent(data){
     console.log("comming")
@@ -38,7 +42,7 @@ export class StudentsService {
     let email = "bruckgmk@gmail.com"
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
-    //return this.http.put(Keys.API.END_POINTS.EXAM_SAVE, {headers: headers})
+    return this.http.put(Keys.API.END_POINTS.EXAM_SAVE, {headers: headers})
   }
 
   insertStudent(student: Student) {
