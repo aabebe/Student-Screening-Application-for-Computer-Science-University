@@ -33,9 +33,24 @@ export class StudentsService {
   }
   
   getStudentExam(email: string) {
-    return this.http.get(`${this.BaseUrl}` + email);
+    console.log("This is in Students")
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token});
+    //console.log('the tokent is' + token);
+    return this.http.get(Keys.API.END_POINTS.GET_EXAM+email, {headers: headers});
+    
   }
 
+  postStudentExam(data) {
+    console.log("incomming student.....")
+    console.log(data)
+    console.log("----------------")
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token});
+    //console.log('the tokent is' + token);
+    return this.http.post(Keys.API.END_POINTS.WRITE_EXAM, data, {headers: headers});
+    
+  }
   updateStudent(data){
     console.log("comming")
     console.log(data)

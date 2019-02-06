@@ -11,18 +11,18 @@
         <div class="code-editor" #codeEditor></div>
         <div class="container mb-5 mt-5">
           <label for="questionOneDesc">Question One</label><br>
-          {{this.questions[0]?.question}}
+          {{this.exam.exam[0].question}}
           <ace-editor theme="eclipse" mode="javascript" style=" min-height: 150px; overflow: auto;" formControlName="questionOneAns"></ace-editor>
         </div>
         <div class="container mb-5 mt-5">
           <label for="questionTwoDesc">Question Two</label><br>
-          {{this.questions[1]?.question}}
+          {{this.exam.exam[1].question}}
           <ace-editor theme="eclipse" mode="javascript" style=" min-height: 150px; overflow: auto;" formControlName="questionTwoAns"></ace-editor>
         </div>
         
         <div class="container">
           <label for="questionThreeDesc">Question Three</label><br>
-          {{this.questions[2]?.question}}
+          {{this.exam.exam[2].question}}
           <ace-editor theme="eclipse" mode="javascript" style=" min-height: 150px; overflow: auto;" formControlName="questionThreeAns"></ace-editor>
         </div>
       </div>
