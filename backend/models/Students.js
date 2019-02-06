@@ -8,6 +8,7 @@ const studentSchema = new Schema({
   lastName: { type: String },
   gender: { type: String },
   status: { type: String },
+  isActive: { type: Boolean },
   email: {
     type: String
   },

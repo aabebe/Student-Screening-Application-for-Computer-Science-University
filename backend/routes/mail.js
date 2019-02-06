@@ -31,7 +31,7 @@ router.patch("/", auth, async (req, res) => {
       <h>Maharishi Universt of Management</h>
         <p>click on the link to take the pre test</p>
         <p style ="border-radius :2px" bgcolor="red" >
-        <a href="http://localhost:4200/mail/?${token}/${email}" target="_blank"  
+        <a href="http://localhost:4200/mail/${token}/${email}" target="_blank"  
         style="background-color: #4CAF50;
   border: none;color: white; padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;" 
         >

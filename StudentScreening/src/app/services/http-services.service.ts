@@ -16,15 +16,22 @@ export class HttpServicesService {
     });
   }
   getRandomQuestions(): Observable<any> {
-
     // headers.append('Content-Type', 'application/json');
     const token = JSON.parse(localStorage.getItem('token'));
-    const headers = new HttpHeaders({'x-auth-token': token});
+    const headers = new HttpHeaders({ 'x-auth-token': token });
     console.log(token);
     // headers.append('x-auth-token', token);
 
     return this.http.get('http://localhost:4000/question', {
       headers: headers
     });
+  }
+  verifyStudent(params) {
+    const token = params.token;
+    const user = localStorage.getItem('student');
+    if (!user) {
+      return false;
+    }
+    return true;
   }
 }

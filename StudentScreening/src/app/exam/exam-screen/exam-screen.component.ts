@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exam-screen',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExamScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    const token = localStorage.getItem('student');
+    console.log('from on init');
+    console.log(token);
+    if (!token) {
+      this.router.navigate(['util']);
+    }
+    setTimeout(() => {
+      localStorage.removeItem('student');
+    }, 2000 * 60);
+
   }
 
 }

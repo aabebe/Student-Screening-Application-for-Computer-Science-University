@@ -9,6 +9,14 @@ route.put("/status", auth, admin, updateStatus);
 route.get("/exam/:id", auth, getExam);
 route.put("/exam/screenshot", auth, admin, updateExamScreenShot);
 
+route.patch('/', async (req, res) => {
+  const email = req.body.email;
+  const student = await Students.findOneAndUpdate({ email: email }, { $set: { isActive: true } }, { new: true });
+  res.json({ status: 200, data: student });
+});
+
+
+
 async function getStudents(req, res) {
   var docs = await Students.find({});
   console.log(docs);
