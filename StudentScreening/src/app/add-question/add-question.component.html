@@ -1,3 +1,23 @@
-<p>
-  add-question works!
-</p>
+<div class="container">
+  <div class="row">
+    <form [formGroup]="addQuestionForm" (ngSubmit)="onSubmit()">
+      <div formGroupName="questionData">
+        <div class="form-group">
+          <label>Type Question</label>
+          <input
+            formControlName="question"
+            class="container-fluid"
+            width="100%"
+            placeholder="Enter Question"
+          />
+          <span class="help-block"
+                *ngIf="!addQuestionForm.get('questionData.question').valid && addQuestionForm.get('questionData.question').touched">
+            Please Enter a Valid Data!</span>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>

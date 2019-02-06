@@ -6,8 +6,7 @@ import {  StaffStudentDetailComponent } from 'src/app/components/staff-student-d
 
 const APP_ROUTES: Routes = [
     {
-        path: 'staff',
-        component: StaffStudentDetailComponent
+        path: 'staff', component: StaffStudentDetailComponent
         //component: StaffHomeComponent
     },
  

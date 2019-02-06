@@ -3,6 +3,7 @@ const Keys = {
     END_POINTS: {
       QUESTION: "http://localhost:4000/question",
       QUESTION_ACTIVE_DEACTIVE: "http://localhost:4000/question/status",
+      QUESTION_SAVE: "http://localhost:4000/question",
       ADMIN_STAFF: "http://localhost:4000/staff",
       ADMIN_STAFF_ACTIVE_DEACTIVE: "http://localhost:4000/staff/status",
       ADMISSION_STAFF: "http://localhost:4000/students"

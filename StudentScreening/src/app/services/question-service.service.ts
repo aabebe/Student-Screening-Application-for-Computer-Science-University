@@ -24,4 +24,12 @@ export class QuestionServiceService {
     console.log(headers);
     return this.httpClient.put(Keys.API.END_POINTS.QUESTION_ACTIVE_DEACTIVE, question, {headers: headers});
   }
+
+  saveQuestion(question) {
+    console.log(question);
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token});
+    headers.set('Content-Type', 'application/json');
+    return this.httpClient.post(Keys.API.END_POINTS.QUESTION_SAVE, question, {headers: headers});
+  }
 }
