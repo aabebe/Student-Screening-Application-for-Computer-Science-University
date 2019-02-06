@@ -47,6 +47,7 @@ async function getQuestions() {
                 answer: []
             };
             questionsList.push(questions)
+            counter++;
         } else {
             return questionsList;
         }
@@ -57,8 +58,8 @@ async function getQuestions() {
 
 async function getExam(req, res) {
     let questions = [
-     /*   {id: "2", question: "B", answer: []},
-        {id: "1", question: "A", answer: []}*/
+        /*   {id: "2", question: "B", answer: []},
+           {id: "1", question: "A", answer: []}*/
     ];
 
     console.log(await getQuestions());
