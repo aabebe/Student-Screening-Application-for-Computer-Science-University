@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 export interface Staff {
   name: string;
@@ -38,12 +38,12 @@ export class StaffService {
     return this.http.put(`${this.BaseUrl}` + staff.name + '/update', staff);
   }
 
-  sendInvitation(studentBody){
-    console.log("into email send..")
+  sendInvitation(studentBody) {
+    console.log('into email send..');
     const token = JSON.parse(localStorage.getItem('token'));
-    const headers = new HttpHeaders({'x-auth-token': token})
-     return this.http.post(`${this.BaseUrlEmail}`, studentBody, {
-          headers: headers
-  });
+    const headers = new HttpHeaders({'x-auth-token': token});
+    return this.http.post(`${this.BaseUrlEmail}`, studentBody, {
+      headers: headers
+    });
   }
 }

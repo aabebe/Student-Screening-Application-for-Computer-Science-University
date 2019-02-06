@@ -10,8 +10,7 @@ let questionSchema = new schema({
         type: Boolean
     },
     questionId: {
-        type: Number,
-        required: true
+        type: Number
     }
 });
 

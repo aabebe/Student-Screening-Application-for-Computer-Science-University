@@ -40,13 +40,9 @@ router.get("/", auth, admin, async (req, res, next) => {
     }
 });
 router.post("/", auth, admin, async (req, res, next) => {
-    let question = new Question({
-        question: req.body.question,
-        isActivated: req.body.isActivated,
-        questionId: req.body.questionId
-    });
-
-    question = await question.save(question);
+    let question;
+    console.log(req.body);
+    question = await Question.create(req.body);
     res.status(200).json(question);
 });
 

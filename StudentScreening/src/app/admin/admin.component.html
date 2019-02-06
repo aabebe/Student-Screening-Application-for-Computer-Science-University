@@ -1,25 +1,21 @@
-<ngb-tabset>
-  <ngb-tab>
-    <ng-template ngbTabTitle>
-      <b (click)="routeComponent('question')">Questions</b>
-    </ng-template>
-    <ng-template ngbTabContent>
-      <router-outlet name="question"></router-outlet>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle>
-      <b (click)="routeComponent('adminstaff')">Staff</b>
-    </ng-template>
-    <ng-template ngbTabContent>
-      <router-outlet name="adminstaff"></router-outlet>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Review</b></ng-template>
-    <ng-template ngbTabContent>
-      <p>Review.</p>
-    </ng-template>
-  </ngb-tab>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-</ngb-tabset>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['question']">Questions</a>
+      </li>
+
+
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['adminstaff']">Staff <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['adminstaff']">Review <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

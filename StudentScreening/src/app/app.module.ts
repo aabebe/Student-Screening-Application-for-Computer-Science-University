@@ -23,16 +23,23 @@ import {QuestionServiceService} from './services/question-service.service';
 import {ExamComponent} from './exam/exam.component';
 import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
 
+import {QuestionTableComponent} from './question-table/question-table.component';
+import {AddStaffComponent} from './add-staff/add-staff.component';
+import {StaffTableComponent} from './staff-table/staff-table.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     StaffStudentDetailComponent,
     LoginScreenComponent,
     AdminComponent,
-    AddQuestionComponent,
     AdminstaffComponent,
+    AddStaffComponent,
+    StaffTableComponent,
     UtilComponentComponent,
     QuestionComponent,
+    AddQuestionComponent,
+    QuestionTableComponent,
     ExamComponent,
     ExamScreenComponent
   ],
@@ -55,16 +62,43 @@ import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
         path: 'admin', component: AdminComponent,
         children: [{
           path: '',
-          outlet: 'question',
-          component: QuestionComponent
+          redirectTo: 'question',
+          pathMatch: 'full'
         }, {
-          path: '',
-          outlet: 'adminstaff',
-          component: AdminstaffComponent
+          path: 'question',
+          component: QuestionComponent,
+          children: [
+            {
+              path: '',
+              redirectTo: 'table',
+              pathMatch: 'full'
+            },
+            {
+              path: 'table',
+              component: QuestionTableComponent
+            },
+            {
+              path: 'addquestion',
+              component: AddQuestionComponent
+            }
+          ]
         }, {
-          path: '',
-          outlet: 'addquestion',
-          component: AddQuestionComponent
+          path: 'adminstaff',
+          component: AdminstaffComponent, children: [
+            {
+              path: '',
+              pathMatch: 'full',
+              redirectTo: 'tablestaff'
+            },
+            {
+              path: 'tablestaff',
+              component: StaffTableComponent
+            },
+            {
+              path: 'addstaff',
+              component: AddStaffComponent
+            }
+          ]
         }
         ]
       }
