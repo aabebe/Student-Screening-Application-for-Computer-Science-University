@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {StaffService} from '../services/staff.service';
-import {Subscription} from 'rxjs';
-import {StudentsService} from '../services/students.service';
+import { Component, OnInit } from '@angular/core';
+import { StaffService } from '../services/staff.service';
+import { Subscription } from 'rxjs';
+import { StudentsService } from '../services/students.service';
+
 
 @Component({
   selector: 'app-staff-student-detail',
@@ -13,7 +14,6 @@ export class StaffStudentDetailComponent implements OnInit {
   students: any[] = [];
   isLoaded = false;
   public studentList;
-
   constructor(
     private staffService: StaffService,
     private studentsService: StudentsService
@@ -35,25 +35,27 @@ export class StaffStudentDetailComponent implements OnInit {
       status: student[0].status
 
     };
-    console.log(studentInfo);
+    // console.log('form staff componenet');
+    // console.log(studentInfo);
     this.staffService.sendInvitation(studentInfo).subscribe(data => {
-      if (data['status'] === 200) {
-        console.log('Email Sent sucessfully');
-      } else {
-        console.log('Error on email send');
-      }
-    });
+       if (data['status'] === 200) {
+           console.log('Email Sent sucessfully');
+        // swal('Success','Invitation sent for '+ data['message'],'success');
+       } else {
+           console.log('Error on email send');
+        // swal("Oops!", "Something went wrong!", "error");
+       }
+     });
   }
-
-  checkStatus() {
-  }
+  checkStatus() {}
 
   ngOnInit() {
     this.getStudentSubscriber = this.studentsService
       .getStudentList()
       .subscribe(data => {
-        //console.log('asffdfd: ', data[0]);
+        // console.log('asffdfd: ', data[0]);
         this.isLoaded = true;
+        // tslint:disable-next-line:forin
         for (const i in data) {
           this.students.push(data[i]);
           console.log(data[i]);
@@ -62,8 +64,8 @@ export class StaffStudentDetailComponent implements OnInit {
         console.log(this.students);
       });
   }
-
-  ngOnDestroy() {
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngOnDestroy() {
     this.getStudentSubscriber.unsubscribe();
   }
 }

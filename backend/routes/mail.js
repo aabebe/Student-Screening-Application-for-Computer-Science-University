@@ -5,7 +5,7 @@ let constPASS = require("../keys/ConstDB");
 const router = express.Router();
 const Student = require("../models/Students");
 
-router.post("/", auth, async (req, res) => {
+router.patch("/", auth, async (req, res) => {
   try {
     const student = req.body;
     const email = student.email;
@@ -41,12 +41,22 @@ router.post("/", auth, async (req, res) => {
       `
     };
     console.log(constPASS.MAIL_PASS);
-    let info = await transporter.sendMail(mailOptions, (err, info) => {
+    let info = await transporter.sendMail(mailOptions, async (err, info) => {
       if (err) {
         console.log(err);
       } else {
         console.log(`Email sent : ${info.response}`);
-        Student.findOneAndUpdate({ email: email }, { status: "SENT" });
+        const myuser = await Student.findOneAndUpdate(
+          { email: email },
+          // (err, res) => {
+
+          //   console.log(res);
+          // }
+          { status: "SENT" },
+          { upsert: true }
+        );
+        console.log("from find");
+        console.log(myuser);
         res.json({ status: 200, token: token, data: data });
       }
     });

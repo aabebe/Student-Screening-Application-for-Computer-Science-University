@@ -22,6 +22,7 @@ import {AddQuestionComponent} from './add-question/add-question.component';
 import {QuestionServiceService} from './services/question-service.service';
 import {ExamComponent} from './exam/exam.component';
 import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
+import { CountdownModule } from 'ngx-countdown';
 
 import {QuestionTableComponent} from './question-table/question-table.component';
 import {AddStaffComponent} from './add-staff/add-staff.component';
@@ -49,6 +50,7 @@ import {StaffTableComponent} from './staff-table/staff-table.component';
     NgbModule,
     FormsModule,
     HttpClientModule,
+    CountdownModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: LoginScreenComponent},
