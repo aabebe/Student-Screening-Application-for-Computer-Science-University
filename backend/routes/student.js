@@ -1,6 +1,7 @@
 const express = require("express");
 const route = express.Router();
 let Students = require("../models/Students");
+const Question = require("../models/question");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
@@ -33,13 +34,36 @@ function updateStatus(req, res) {
 } //end of updateStatus
 
 
-function getExam(req, res) {
+async function getQuestions() {
+    let counter = 0;
+    let questionsList = [];
+    const dbQuestionsList = await Question.find({}).sort("questionId");
+
+    dbQuestionsList.forEach(singleQuestion => {
+        if (counter <= 2) {
+            let questions = {
+                id: singleQuestion.id,
+                question: singleQuestion.question,
+                answer: []
+            };
+            questionsList.push(questions)
+        } else {
+            return questionsList;
+        }
+    });
+    return questionsList;
+}
+
+
+async function getExam(req, res) {
     let questions = [
-        {id: "2", question: "B", answer: []},
-        {id: "1", question: "A", answer: []}
+     /*   {id: "2", question: "B", answer: []},
+        {id: "1", question: "A", answer: []}*/
     ];
 
-    let email = req.params.email;
+    console.log(await getQuestions());
+    questions = await getQuestions();
+    let email = req.params.id;
     console.log(email);
     var conditions = {
             email: email
@@ -51,7 +75,8 @@ function getExam(req, res) {
 
     async function updateCallBack(err, response) {
         if (!err) {
-            let data = await getExamQuestions(id);
+            console.log("Update callback");
+            let data = await getExamQuestions(email);
             res.json(data);
         } else {
             res.json(err);
@@ -59,11 +84,12 @@ function getExam(req, res) {
     } // end of updateCallBack
 } // end of getExam
 
-async function getExamQuestions(id) {
+async function getExamQuestions(email) {
     try {
-        return await Students.find({_id: id});
+        console.log(email);
+        return await Students.find({email: email});
     } catch (e) {
-        console.log(e);
+        console.log("Error : " + e);
         return null;
     }
 }
