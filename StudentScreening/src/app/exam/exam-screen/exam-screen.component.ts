@@ -50,11 +50,12 @@ export class ExamScreenComponent implements OnInit {
   resetTimer() {
     this.counter.restart();
 }
+
   // @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
   // private codeEditor: ace.Ace.Editor;
   constructor(private studentsService: StudentsService, private questionService:QuestionServiceService, private formbuilder:FormBuilder, private datePipe: DatePipe) {
       questionService.getServerQuestion().subscribe((data)=>{
-
+      //studentsService.
       for(var i = 0; i < 3; i++) {
           let idx = Math.floor(Math.random() * data.length);
           this.questions.push(data[idx]);
