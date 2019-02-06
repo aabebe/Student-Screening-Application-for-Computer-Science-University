@@ -95,7 +95,7 @@ function saveExam(req, res) {
     console.log(req.body);
     let student = req.body;
     student.exam.forEach(questionObj => {
-        saveScreen(student._id, questionObj.question, questionObj.answer);
+        saveScreen(student._id, questionObj.id, questionObj.answer);
     });
     res.status(200).json("{success}");
 }
