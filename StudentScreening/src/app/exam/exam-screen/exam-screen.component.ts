@@ -3,25 +3,36 @@ import { QuestionServiceService } from './../../services/question-service.servic
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as ace from 'ace-builds'; 
 import { CountdownComponent } from 'ngx-countdown';
+import { StudentsService } from 'src/app/services/students.service';
+import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-exam-screen',
   templateUrl: './exam-screen.component.html',
-  styleUrls: ['./exam-screen.component.css']
+  styleUrls: ['./exam-screen.component.css'],
+  providers: [DatePipe]
+
 })
 export class ExamScreenComponent implements OnInit {
   questions :any[] = [];
   questionForm : FormGroup
-    notify: string;
+  notify: string;
   config: any = { leftTime: 10, notify: [2, 5] };
+
+  answers: any;
   onStart() {
    this.notify = 'Strating Exam';
+   
   }
   onFinished() {
     this.notify = 'Finished!';
   }
   onNotify(time: number) {
-    this.notify = `Time{time}ms时通知了一下`;
+    this.notify = ``;
   }
 
   stopConfig: any = { stopTime: new Date().getTime() + 1000 * 30 };
@@ -31,6 +42,7 @@ export class ExamScreenComponent implements OnInit {
 
   onEvent(value: any) {
     console.log('event', value);
+  
   }
 
   @ViewChild('countdown') counter: CountdownComponent;
@@ -39,7 +51,7 @@ export class ExamScreenComponent implements OnInit {
 }
   // @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
   // private codeEditor: ace.Ace.Editor;
-  constructor(private questionService:QuestionServiceService, private formbuilder:FormBuilder) {
+  constructor(private studentsService: StudentsService, private questionService:QuestionServiceService, private formbuilder:FormBuilder, private datePipe: DatePipe) {
       questionService.getServerQuestion().subscribe((data)=>{
         
       for(var i = 0; i < 3; i++) {
@@ -52,17 +64,32 @@ export class ExamScreenComponent implements OnInit {
       
       this.questionForm = formbuilder.group({
         
-      'questionOneDesc': ['', Validators.required],
+          'questionOneDesc': ['', Validators.required],
           'questionTwoDesc': ['', Validators.required],
           'questionThreeDesc': ['', Validators.required],
+          'questionOneAns':['', Validators.required],
+          'questionTwoAns':['', Validators.required],
+          'questionThreeAns':['',Validators.required],
+          'timeLeft':['',Validators.required]
  
       });
       this.questionForm.valueChanges.subscribe(data=>{
-        console.log("testing...");
-        (data: any) => console.log(data)
+        this.answers = data;
       })
    }
-
+submitTrigger(){
+  //let datePipe;
+   let datePipe = this.datePipe.transform(new Date(), 'MMM d, y, h:mm:ss a');
+   this.answers.timeLeft = datePipe;
+  this.answers.questionOneDesc = this.questions[0].question;
+  this.answers.questionTwoDesc = this.questions[1].question;
+  this.answers.questionThreeDesc = this.questions[2].question;
+  console.log("value is "+ this.answers.timeLeft);
+  console.log(this.answers);
+  this.studentsService.updateStudent(this.answers);
+  //console.log(data)
+  //StudentsService
+}
   onSubmit() {
     console.log(this.questionForm);
   }
