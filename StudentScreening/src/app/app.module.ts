@@ -6,7 +6,7 @@ import {StaffService} from './services/staff.service';
 import {AdminstaffService} from './services/adminstaff.service';
 import {StaffStudentDetailComponent} from './components/staff-student-detail.component';
 import {StudentsService} from './services/students.service';
-
+import { AceEditorModule } from 'ng2-ace-editor';
 import {AppComponent} from './app.component';
 import {LoginScreenComponent} from './login-screen/login-screen.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -42,6 +42,7 @@ import { CountdownModule } from 'ngx-countdown';
     BrowserModule,
     NgbModule,
     FormsModule,
+    AceEditorModule,
     HttpClientModule,
     CountdownModule,
     ReactiveFormsModule,
