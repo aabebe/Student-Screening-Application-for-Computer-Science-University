@@ -40,7 +40,7 @@ export class StudentsService {
   updateStaff(student: Student) {
     return this.http.put(`${this.BaseUrl}` + student.name + '/update', student);
   }
-  updateStudentActivity(email) {
+  updateStudentActivity(email): Observable<any> {
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({ 'x-auth-token': token });
     const data = {
@@ -48,4 +48,8 @@ export class StudentsService {
     };
     return this.http.patch(`${this.BaseUrl}`, data, { headers: headers });
   }
+  getCurrentStudent(token) {
+
+  }
+
 }

@@ -31,17 +31,16 @@ export class ExamComponent implements OnInit {
       localStorage.setItem('student', this.token);
       console.log(this.token);
     });
-    this.studentService.updateStudentActivity(this.email).subscribe(
-      res => {
-      console.log('lsdfdsklfhdsfhd');
-      console.log(res.data.isActive);
-      const data = res.data.isActive;
+    let data;
+    if (!data) {
+      this.studentService.updateStudentActivity(this.email).subscribe(res => {
+        console.log('from exam component');
+        console.log(res.data.isActive);
+        data = res.data.isActive;
 
-      if (data) {
-        this.router.navigate(['util']);
-      }
-    });
-
-    this.router.navigate(['examscreen']);
+        return this.router.navigate(['examscreen']);
+      });
+    }
+    return this.router.navigate(['util']);
   }
 }

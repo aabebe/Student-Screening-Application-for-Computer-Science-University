@@ -53,8 +53,7 @@ import { WebGuard } from './guards/web.guard';
       },
       {
         path: 'mail/:token/:email',
-        component: ExamComponent,
-
+        component: ExamComponent
       },
       {
         path: 'examscreen',
