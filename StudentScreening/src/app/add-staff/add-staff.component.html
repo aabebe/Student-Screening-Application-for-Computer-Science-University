@@ -1,3 +1,53 @@
-<p>
-  add-staff works!
-</p>
+<div class="container">
+  <div class="row">
+    <form [formGroup]="addStaffForm" (ngSubmit)="onSubmit()">
+      <div formGroupName="staffData">
+        <div class="form-group">
+
+          <label>Title</label>
+          <input
+            formControlName="title"
+            class="container-fluid"
+            placeholder="Mr. Miss. Mrs."
+          />
+
+          <label>First Name</label>
+          <input
+            formControlName="firstName"
+            class="container-fluid"
+            placeholder="Enter First Name"
+          />
+
+          <label>Last Name</label>
+          <input
+            formControlName="lastName"
+            class="container-fluid"
+            placeholder="Enter Last Name"
+          />
+
+          <label>Email</label>
+          <input
+            formControlName="email"
+            class="container-fluid"
+            type="email"
+            placeholder="Enter Email"
+          />
+
+          <label>Password</label>
+          <input
+            formControlName="password"
+            class="container-fluid"
+            type="password"
+            placeholder="Enter Password"
+          />
+
+        </div>
+
+      </div>
+      <span class="help-block"
+            *ngIf="!addStaffForm.valid && addStaffForm.touched">
+            Please Enter a Valid Data!</span>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>

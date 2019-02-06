@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import Keys from '../keys/Keys';
 
 export interface Staff {
   name: string;
@@ -12,7 +13,8 @@ export class StaffService {
   public BaseUrl: String = 'http://localhost:4000/staff/';
   public BaseUrlEmail: String = 'http://localhost:4000/mail/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   //  getAllStaff(): Promise<void | Staff[]> {
   //     console.log("what a way to ...")
@@ -29,8 +31,11 @@ export class StaffService {
     return this.http.get(`${this.BaseUrl}` + id);
   }
 
-  insertStaff(staff: Staff) {
-    return this.http.post(`${this.BaseUrl}`, staff);
+  insertStaff(staffObj) {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token});
+    headers.set('Content-Type', 'application/json');
+    return this.http.post(Keys.API.END_POINTS.ADMIN_STAFF, staffObj, {headers: headers});
   }
 
   updateStaff(staff: Staff) {
@@ -40,7 +45,7 @@ export class StaffService {
   sendInvitation(studentBody) {
     console.log('into email send..');
     const token = JSON.parse(localStorage.getItem('token'));
-    const headers = new HttpHeaders({ 'x-auth-token': token });
+    const headers = new HttpHeaders({'x-auth-token': token});
     const temp = studentBody;
     temp.status = 'SENT';
     return this.http.patch(`${this.BaseUrlEmail}`, temp, {

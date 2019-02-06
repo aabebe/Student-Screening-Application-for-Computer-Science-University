@@ -14,30 +14,11 @@ router.get('/', (req, res) => {
     })
     //res.send('Testing controller!');
 });
-router.post('/create', (req, res) => {
-    let staff = new Staff(
-        {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            gender: req.body.gender,
-            email: req.body.email,
-            title: req.body.title,
-            role: req.body.role,
-            status: req.body.status,
-            password: req.body.password
-        }
-    );
-
-    var new_task = new Staff(staff);
-
-
-    new_task.save(function (err, staff) {
-        console.log("BB")
-        if (err)
-            res.send(err);
-        res.json(staff);
-        console.log("Middling...")
-    });
+router.post('/', async (req, res) => {
+    let question;
+    console.log(req.body);
+    question = await Staff.create(req.body);
+    res.status(200).json(question);
 });
 router.get("/:id", auth, (req, res) => {
     Staff.findById(req.params.id, function (err, staff) {
