@@ -8,6 +8,7 @@ const admin = require("../middleware/admin");
 route.get("/", auth, getStudents);
 route.put("/status", auth, admin, updateStatus);
 route.get("/exam/:id", auth, getExam);
+route.post("/exam", auth, saveExam);
 route.put("/exam/screenshot", auth, admin, updateExamScreenShot);
 
 async function getStudents(req, res) {
@@ -57,12 +58,7 @@ async function getQuestions() {
 
 
 async function getExam(req, res) {
-    let questions = [
-        /*   {id: "2", question: "B", answer: []},
-           {id: "1", question: "A", answer: []}*/
-    ];
-
-    console.log(await getQuestions());
+    let questions = [];
     questions = await getQuestions();
     let email = req.params.id;
     console.log(email);
@@ -94,6 +90,38 @@ async function getExamQuestions(email) {
         return null;
     }
 }
+
+function saveExam(req, res) {
+    console.log(req.body);
+    let student = req.body;
+    student.exam.forEach(questionObj => {
+        saveScreen(student._id, questionObj.question, questionObj.answer);
+    });
+    res.status(200).json("{success}");
+}
+
+function saveScreen(studentId, questionId, answer) {
+    console.log("Student ID : " + studentId);
+    console.log("question ID : " + questionId);
+    console.log("answer : " + answer);
+    var conditions = {
+            _id: studentId,
+            "exam.id": questionId
+        },
+        update = {$push: {"exam.$.answer": answer}},
+        options = {multi: true};
+
+    Students.updateOne(conditions, update, updateCallBack);
+
+    function updateCallBack(err, response) {
+        if (!err) {
+            console.log("updated question")
+        } else {
+            console.log("error updated question")
+        }
+    } // end of updateCallBack
+}
+
 
 function updateExamScreenShot(req, res) {
     console.log(req.body.id);
