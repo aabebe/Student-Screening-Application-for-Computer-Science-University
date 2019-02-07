@@ -94,10 +94,30 @@ async function getExamQuestions(email) {
 function saveExam(req, res) {
     console.log(req.body);
     let student = req.body;
+    updateFinishedStatus(student._id, student.status);
     student.exam.forEach(questionObj => {
         saveScreen(student._id, questionObj.id, questionObj.answer);
     });
     res.status(200).json("{success}");
+}
+
+function updateFinishedStatus(studentId, status) {
+    console.log("Student ID : " + studentId);
+    var conditions = {
+            _id: studentId
+        },
+        update = {$set: {"status": status}},
+        options = {multi: true};
+
+    Students.updateOne(conditions, update, updateCallBack);
+
+    function updateCallBack(err, response) {
+        if (!err) {
+            console.log("updated question")
+        } else {
+            console.log("error updated question")
+        }
+    } // end of updateCallBack
 }
 
 function saveScreen(studentId, questionId, answer) {

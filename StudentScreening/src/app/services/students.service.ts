@@ -19,45 +19,47 @@ export class StudentsService {
   getStudentList(): Observable<any> {
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
-    //console.log('the tokent is' + token);
+    return this.http.get(Keys.API.END_POINTS.ADMISSION_STAFF, {headers: headers});
+  }
+
+  getFinishedStudentList(): Observable<any> {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token});
     return this.http.get(Keys.API.END_POINTS.ADMISSION_STAFF, {headers: headers});
   }
 
   getAllStudents() {
-    //console.log('comming...');
     return this.http.get(`${this.BaseUrl}`);
   }
 
   getStudent(id: string) {
     return this.http.get(`${this.BaseUrl}` + id);
   }
-  
+
   getStudentExam(email: string) {
-    console.log("This is in Students")
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
-    //console.log('the tokent is' + token);
-    return this.http.get(Keys.API.END_POINTS.GET_EXAM+email, {headers: headers});
-    
+    return this.http.get(Keys.API.END_POINTS.GET_EXAM + email, {headers: headers});
+
   }
 
   postStudentExam(data) {
-    console.log("incomming student.....")
-    console.log(data)
-    console.log("----------------")
+    console.log('incomming student.....');
+    console.log(data);
+    console.log('----------------');
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
-    //console.log('the tokent is' + token);
     return this.http.post(Keys.API.END_POINTS.WRITE_EXAM, data, {headers: headers});
-    
+
   }
-  updateStudent(data){
-    console.log("comming")
-    console.log(data)
-    let email = "bruckgmk@gmail.com"
+
+  updateStudent(data) {
+    console.log('comming');
+    console.log(data);
+    const email = 'bruckgmk@gmail.com';
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
-    return this.http.put(Keys.API.END_POINTS.EXAM_SAVE, {headers: headers})
+    return this.http.put(Keys.API.END_POINTS.EXAM_SAVE, {headers: headers});
   }
 
   insertStudent(student: Student) {
