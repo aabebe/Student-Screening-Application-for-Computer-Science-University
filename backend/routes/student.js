@@ -3,19 +3,35 @@ const route = express.Router();
 let Students = require("../models/Students");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
-
+const jwt = require("jsonwebtoken");
+const url = require("url");
 route.get("/", auth, getStudents);
 route.put("/status", auth, admin, updateStatus);
 route.get("/exam/:id", auth, getExam);
 route.put("/exam/screenshot", auth, admin, updateExamScreenShot);
 
-route.patch('/', async (req, res) => {
+route.post("", async (req, res) => {
+  try {
+    const token = req.body.token;
+    console.log(token);
+    const decodedPayload = jwt.verify(token, "jwtPrivateKey");
+    console.log("inside student route");
+    console.log(decodedPayload.email);
+    const student = decodedPayload.email;
+    res.json({ status: 200, email: student });
+  } catch (ex) {
+    res.status(400).send("Invalid token");
+  }
+});
+route.patch("/", async (req, res) => {
   const email = req.body.email;
-  const student = await Students.findOneAndUpdate({ email: email }, { $set: { isActive: true } }, { new: true });
+  const student = await Students.findOneAndUpdate(
+    { email: email },
+    { $set: { isActive: true } },
+    { new: true }
+  );
   res.json({ status: 200, data: student });
 });
-
-
 
 async function getStudents(req, res) {
   var docs = await Students.find({});

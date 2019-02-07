@@ -48,8 +48,9 @@ export class StudentsService {
     };
     return this.http.patch(`${this.BaseUrl}`, data, { headers: headers });
   }
-  getCurrentStudent(token) {
-
+  getCurrentStudent(input): Observable<any> {
+    const token = JSON.parse(localStorage.getItem('student'));
+    // const headers = new HttpHeaders({ 'x-auth-token': token });
+    return this.http.post(`${this.BaseUrl}`, input);
   }
-
 }
