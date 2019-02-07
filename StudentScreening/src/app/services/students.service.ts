@@ -25,7 +25,7 @@ export class StudentsService {
   getFinishedStudentList(): Observable<any> {
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
-    return this.http.get(Keys.API.END_POINTS.ADMISSION_STAFF, {headers: headers});
+    return this.http.get(Keys.API.END_POINTS.EXAM_FINISHED, {headers: headers});
   }
 
   getAllStudents() {

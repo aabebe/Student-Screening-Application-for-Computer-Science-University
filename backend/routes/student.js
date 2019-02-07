@@ -6,6 +6,7 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
 route.get("/", auth, getStudents);
+route.get("/finished", auth, getFinishedStudent);
 route.put("/status", auth, admin, updateStatus);
 route.get("/exam/:id", auth, getExam);
 route.post("/exam", auth, saveExam);
@@ -13,6 +14,12 @@ route.put("/exam/screenshot", auth, admin, updateExamScreenShot);
 
 async function getStudents(req, res) {
     var docs = await Students.find({});
+    console.log(docs);
+    res.json(docs);
+} // end of getStudents
+
+async function getFinishedStudent(req, res) {
+    var docs = await Students.find({status:"FINISHED"});
     console.log(docs);
     res.json(docs);
 } // end of getStudents
@@ -90,6 +97,7 @@ async function getExamQuestions(email) {
         return null;
     }
 }
+
 
 function saveExam(req, res) {
     console.log(req.body);

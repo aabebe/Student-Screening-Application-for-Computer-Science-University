@@ -8,6 +8,7 @@ const Keys = {
       ADMIN_STAFF_ACTIVE_DEACTIVE: "http://localhost:4000/staff/status",
       ADMISSION_STAFF: "http://localhost:4000/students",
       EXAM_SAVE: "http://localhost:4000/students/",
+      EXAM_FINISHED: "http://localhost:4000/students/finished",
       GET_EXAM: "http://localhost:4000/students/exam/",
       WRITE_EXAM: "http://localhost:4000/students/exam/"
     },

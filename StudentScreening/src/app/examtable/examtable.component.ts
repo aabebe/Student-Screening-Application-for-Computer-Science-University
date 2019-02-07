@@ -16,7 +16,7 @@ export class ExamtableComponent implements OnInit {
   }
 
   getServerStudents() {
-    this.studentService.getStudentList().subscribe(data => {
+    this.studentService.getFinishedStudentList().subscribe(data => {
       this.studentList = data;
     });
   }
