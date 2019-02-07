@@ -12,9 +12,9 @@ export interface Staff {
 export class StaffService {
   public BaseUrl: String = 'http://localhost:4000/staff/';
   public BaseUrlEmail: String = 'http://localhost:4000/mail/';
-
-  constructor(private http: HttpClient) {
-  }
+  token = JSON.parse(localStorage.getItem('token'));
+  headers = new HttpHeaders({ 'x-auth-token': this.token });
+  constructor(private http: HttpClient) {}
 
   //  getAllStaff(): Promise<void | Staff[]> {
   //     console.log("what a way to ...")
@@ -24,11 +24,11 @@ export class StaffService {
   //                   .catch((err)=>{console.log("Error when fetching..")});
   //       }
   getAllStaff() {
-    return this.http.get(`${this.BaseUrl}`);
+    return this.http.get(`${this.BaseUrl}`, { headers: this.headers });
   }
 
   getStaff(id: string) {
-    return this.http.get(`${this.BaseUrl}` + id);
+    return this.http.get(`${this.BaseUrl}` + id, { headers: this.headers });
   }
 
   insertStaff(staffObj) {
@@ -39,7 +39,9 @@ export class StaffService {
   }
 
   updateStaff(staff: Staff) {
-    return this.http.put(`${this.BaseUrl}` + staff.name + '/update', staff);
+    return this.http.put(`${this.BaseUrl}` + staff.name + '/update', staff, {
+      headers: this.headers
+    });
   }
 
   sendInvitation(studentBody) {

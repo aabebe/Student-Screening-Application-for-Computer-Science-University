@@ -1,15 +1,17 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {StaffService} from './services/staff.service';
 import {AdminstaffService} from './services/adminstaff.service';
 import {StaffStudentDetailComponent} from './components/staff-student-detail.component';
 import {StudentsService} from './services/students.service';
+
 import {AceEditorModule} from 'ng2-ace-editor';
 import {AppComponent} from './app.component';
 import {LoginScreenComponent} from './login-screen/login-screen.component';
-import {RouterModule} from '@angular/router';
+import {ReactiveFormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import {AdminComponent} from './admin/admin.component';
@@ -23,6 +25,7 @@ import {ExamComponent} from './exam/exam.component';
 import {ExamScreenComponent} from './exam/exam-screen/exam-screen.component';
 import {CountdownModule} from 'ngx-countdown';
 
+import {WebGuard} from './guards/web.guard';
 import {QuestionTableComponent} from './question-table/question-table.component';
 import {AddStaffComponent} from './add-staff/add-staff.component';
 import {StaffTableComponent} from './staff-table/staff-table.component';
@@ -60,12 +63,23 @@ import {ExamtableComponent} from './examtable/examtable.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: LoginScreenComponent},
+      {path: 'util', component: UtilComponentComponent},
       {
         path: 'staff',
         component: StaffStudentDetailComponent
       },
-      {path: 'mail', component: ExamComponent},
-      {path: 'examscreen', component: ExamScreenComponent},
+
+      {
+        path: 'mail/:token/:email',
+        component: ExamComponent
+      },
+      {
+        path: 'examscreen',
+        component: ExamScreenComponent,
+        canActivate: [WebGuard]
+      },
+
+
       {
         path: 'admin', component: AdminComponent,
         children: [{

@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Keys from '../keys/Keys';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface Student {
   name: string;
@@ -13,8 +13,7 @@ export interface Student {
 export class StudentsService {
   public BaseUrl: String = 'http://localhost:4000/students/';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getStudentList(): Observable<any> {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -69,5 +68,17 @@ export class StudentsService {
   updateStaff(student: Student) {
     return this.http.put(`${this.BaseUrl}` + student.name + '/update', student);
   }
-
+  updateStudentActivity(email): Observable<any> {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({ 'x-auth-token': token });
+    const data = {
+      email: email
+    };
+    return this.http.patch(`${this.BaseUrl}`, data, { headers: headers });
+  }
+  getCurrentStudent(input): Observable<any> {
+    const token = JSON.parse(localStorage.getItem('student'));
+    // const headers = new HttpHeaders({ 'x-auth-token': token });
+    return this.http.post(`${this.BaseUrl}`, input);
+  }
 }
