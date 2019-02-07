@@ -18,6 +18,7 @@ import {Router} from '@angular/router';
 
 })
 export class ExamScreenComponent implements OnInit {
+  token;
   questions: any[] = [];
   questionIds: any[] = [];
   questionForm: FormGroup;
@@ -71,6 +72,10 @@ export class ExamScreenComponent implements OnInit {
               private formbuilder: FormBuilder,
               private datePipe: DatePipe) {
 
+    this.token = localStorage.getItem('student');
+    console.log('from student exam screen on submit page');
+    console.log(this.token);
+    const email = this.getEmail(this.token);
     studentsService.getStudentExam('bruckgmk@gmail.com').subscribe((data) => {
       console.log('in the student...');
       this.exam = data[0];
@@ -117,16 +122,7 @@ export class ExamScreenComponent implements OnInit {
 
   submitTrigger() {
 
-    const token = localStorage.getItem('student');
-    console.log('from student exam screen on submit page');
-    console.log(token);
-    const email = this.getEmail(token);
-    /*this.studentsService.getCurrentStudent(token).subscribe(params => {
-      email = params.email;
-      console.log('from on submit');
-      console.log(email);
-    });*/
-
+    const email = this.getEmail(this.token);
     const datePipe = this.datePipe.transform(new Date(), 'MMM d, y, h:mm:ss a');
     this.answers.timeLeft = datePipe;
 
