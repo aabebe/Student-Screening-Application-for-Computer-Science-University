@@ -53,14 +53,20 @@ export class StudentsService {
   }
 
   updateStudent(data) {
-    console.log('comming');
-    console.log(data);
+    //console.log('comming');
+    //console.log(data);
     const email = 'bruckgmk@gmail.com';
     const token = JSON.parse(localStorage.getItem('token'));
     const headers = new HttpHeaders({'x-auth-token': token});
     return this.http.put(Keys.API.END_POINTS.EXAM_SAVE, {headers: headers});
   }
-
+updateStatus(data){
+    console.log('commingCOSS');
+    console.log(data);
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = new HttpHeaders({'x-auth-token': token});
+    return this.http.put(Keys.API.END_POINTS.UPDATE_STATUS,data, {headers: headers});
+}
   insertStudent(student: Student) {
     return this.http.post(`${this.BaseUrl}`, student);
   }
