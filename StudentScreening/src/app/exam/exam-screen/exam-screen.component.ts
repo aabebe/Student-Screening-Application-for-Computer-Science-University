@@ -29,6 +29,9 @@ export class ExamScreenComponent implements OnInit {
   userLastName: String;
   userGender: String;
   userIsActive: String;
+  qstOneId: String;
+  qstTwoId: String;
+  qstThreeId: String;
 
   answers: any;
   onStart() {
@@ -57,8 +60,7 @@ export class ExamScreenComponent implements OnInit {
     this.counter.restart();
 }
 
-  // @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
-  // private codeEditor: ace.Ace.Editor;
+
   constructor(private studentsService: StudentsService, private questionService:QuestionServiceService, private formbuilder:FormBuilder, private datePipe: DatePipe) {
       studentsService.getStudentExam("bruckgmk@gmail.com").subscribe((data)=>{
           console.log("in the student...")
@@ -68,19 +70,13 @@ export class ExamScreenComponent implements OnInit {
           this.userLastName = data[0].lastName;
           this.userGender = data[0].gender;
           this.userIsActive = data[0].isActive;
-          console.log(data[0]._id)
+          this.qstOneId = data[0].exam[0].id;
+          this.qstTwoId = data[0].exam[1].id
+          this.qstThreeId = data[0].exam[2].id
           console.log("The end")
           
       });
-      questionService.getServerQuestion().subscribe((data)=>{
-      //studentsService.
-      for(var i = 0; i < 3; i++) {
-          let idx = Math.floor(Math.random() * data.length);
-          this.questions.push(data[idx]);
-          data.splice(idx, 1);
-      }
-         // console.log(this.questions[1].question)
-      })
+
       
       this.questionForm = formbuilder.group({
           'questionOneId':['', Validators.required],
@@ -98,8 +94,6 @@ export class ExamScreenComponent implements OnInit {
       this.questionForm.valueChanges.subscribe(data=>{
         this.answers = data;
 
-        
-       // console.log(this.exam)
       })
    }
 submitTrigger(){
@@ -107,15 +101,9 @@ submitTrigger(){
   //let datePipe;
    let datePipe = this.datePipe.transform(new Date(), 'MMM d, y, h:mm:ss a');
    this.answers.timeLeft = datePipe;
-  this.answers.questionOneDesc = this.questions[0].question;
-  this.answers.questionOneId = this.questions[0]._id;
-  this.answers.questionTwoDesc = this.questions[1].question;
-  this.answers.questionTwoId = this.questions[1]._id
-  this.answers.questionThreeDesc = this.questions[2].question;
-  this.answers.questionThreeId = this.questions[2]._id
 
-  const examObj = {
-    id: this.userId,
+   const examObj = {
+    _id: this.userId,
     email: "bruckgmk@gmail.com",
     status: "FINISHED",
     firstName: this.userFirstName,
@@ -124,22 +112,25 @@ submitTrigger(){
     gender: this.userGender,
     exam:[
 
-          {time:this.answers.timeLeft},
+       //   {time:this.answers.timeLeft},
           
-          {id: this.answers.questionOneId,question:this.answers.questionOneDesc,answer:this.answers.questionOneAns},
+          {id: this.qstOneId,
+            question:this.answers.questionOneDesc,answer:this.answers.questionOneAns},
 
-          {id: this.answers.questionTwoId,question:this.answers.questionTwoDesc,answer:this.answers.questionTwoAns},
+          {id: this.qstTwoId,
+            question:this.answers.questionTwoDesc,answer:this.answers.questionTwoAns},
 
-          {id: this.answers.questionThreeId,question:this.answers.questionThreeDesc,answer:this.answers.questionThreeAns}
+          {id: this.qstThreeId,
+            question:this.answers.questionThreeDesc,answer:this.answers.questionThreeAns}
     ]
   }
+
   this.studentsService.postStudentExam(examObj).subscribe((data)=>{
       if(data['status']==200){
         console.log("yepi")
       }
   });
   console.log(examObj)
-  //StudentsService
 }
   onSubmit() {
     console.log(this.questionForm);
