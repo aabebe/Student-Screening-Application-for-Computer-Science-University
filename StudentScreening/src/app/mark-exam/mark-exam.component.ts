@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentsService } from 'src/app/services/students.service';
 
@@ -29,7 +29,7 @@ export class MarkExamComponent implements OnInit {
   qstThreeId: String;
   userEmail: String;
   studentData: any;
-  constructor(private route: ActivatedRoute, private fb:FormBuilder, private studentsService:StudentsService) {
+  constructor(private route: ActivatedRoute, private fb:FormBuilder, private studentsService:StudentsService, private router:Router) {
 
      
     route.params.subscribe(obj => {
@@ -70,48 +70,19 @@ export class MarkExamComponent implements OnInit {
   }
 submitTrigger(){
   
-   const examObj = {
-    _id: this.userId,
-    email: this.userEmail,
-    status: this.studentData.updateStatus,
-    firstName: this.userFirstName,
-    lastName: this.userLastName,
-    isActive: this.userIsActive,
-    gender: this.userGender,
-    exam:[
 
-       //   {time:this.answers.timeLeft},
-          
-          {id: this.qstOneId,
-            question:this.questionOneDesc,
-            answer:this.questionOneAns},
-
-          {id: this.qstTwoId,
-            question:this.questionTwoDesc,
-            answer:this.questionTwoAns},
-
-          {id: this.qstThreeId,
-            question:this.questionThreeDesc,
-            answer:this.questionThreeAns}
-    ]
-  }
  const examObj1 = {
         id:this.userId,
         status: this.studentData.updateStatus
   }
-  // this.studentsService.postStudentExam(examObj1).subscribe((data)=>{
-  //     if(data['status']==200){
-  //   console.log("yepi..")
-  //     }
-  //     else{
-  //       console.log("Failure.."+data['status'])
-  //     }
-  // });
+
   this.studentsService.updateStatus(examObj1).subscribe((data)=>{
       console.log(data);
   });
   console.log("Checking....")
   console.log(examObj1)
+     this.router.navigate(['/admin/review']);
+
 }
   ngOnInit() {
     this.questionOneAns = this.students.exam[0].answer[0];
