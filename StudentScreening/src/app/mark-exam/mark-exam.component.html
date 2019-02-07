@@ -1,3 +1,40 @@
-<p>
-  mark-exam works!
-</p>
+<div class="container">
+  <div class="row container mb-5">
+    <form  [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+
+        <div class="container">
+          <label>Question One</label><br>
+          {{this.questionOneDesc}}
+          <div><label>Answer</label></div>
+          <div>{{this.questionOneAns}}</div>
+        </div>
+     <br>
+        <div class="container">
+          <label>Question Two</label><br>
+          {{this.questionTwoDesc}}
+          <div><label>Answer</label></div>
+          <div>{{this.questionTwoAns}}</div>
+        </div>
+      <br>
+        <div class="container">
+          <label>Question Three</label><br>
+          {{this.questionThreeDesc}}
+          <div><label>Answer</label></div>
+          <div>{{this.questionThreeAns}}</div>
+        </div>
+      </div>
+      <div>
+      <label for="sel1">Select Status:</label>
+        <select formControlName="updateStatus" class="form-control" id="sel1">
+        <option>PASS</option>
+        <option>FAIL</option>
+        </select>
+      </div>
+      <br><br>
+      <div>
+            <button type="submit" class="btn btn-primary" (click)="submitTrigger()">Submit</button>
+      </div>
+</form>
+</div>
+</div>
