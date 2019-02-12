@@ -32,6 +32,7 @@ import {StaffTableComponent} from './staff-table/staff-table.component';
 import {ReviewComponent} from './review/review.component';
 import {MarkExamComponent} from './mark-exam/mark-exam.component';
 import {ExamtableComponent} from './examtable/examtable.component';
+import {ThankYouComponent} from './exam/exam-screen/thank-you/thank-you.component';
 
 @NgModule({
   declarations: [
@@ -50,11 +51,12 @@ import {ExamtableComponent} from './examtable/examtable.component';
     ExamComponent,
     MarkExamComponent,
     ExamtableComponent,
-    ExamScreenComponent
+    ExamScreenComponent,
+    ThankYouComponent,
   ],
 
   imports: [
-    BrowserModule,
+  BrowserModule,
     NgbModule,
     FormsModule,
     AceEditorModule,
@@ -78,7 +80,10 @@ import {ExamtableComponent} from './examtable/examtable.component';
         component: ExamScreenComponent,
         canActivate: [WebGuard]
       },
-
+      {
+        path:'thankyou',
+        component: ThankYouComponent,
+      },
 
       {
         path: 'admin', component: AdminComponent,

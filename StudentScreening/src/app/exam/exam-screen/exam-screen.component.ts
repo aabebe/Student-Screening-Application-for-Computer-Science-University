@@ -156,10 +156,12 @@ export class ExamScreenComponent implements OnInit {
     };
 
     this.studentsService.postStudentExam(examObj).subscribe((data) => {
-      if (data['status'] == 200) {
-        console.log('yepi');
-      }
+      // if (data['status'] == 200) {
+      //   console.log('yepi');
+      // }
+
     });
+    this.router.navigate(['/thankyou'])
     console.log(examObj);
   }
 
